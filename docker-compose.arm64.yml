@@ -1,0 +1,62 @@
+version: "3.3"
+
+services:
+  db:
+    container_name: db
+    image: ${github_username}/compose-example:db
+    volumes: # isso faz com que os dados do banco sejam salvos na pasta db/data a partir do diretório contexto
+      - ./db/data:/var/lib/postgresql/data
+    build:
+      context: ./
+      dockerfile: Dockerfile.postgres # isso faz com que o docker-compose utilize o Dockerfile.postgres para criar a imagem do banco de dados
+    environment:
+      DATABASE_USER: ${db_username}
+      DATABASE_PASSWORD: ${db_password}
+      DATABASE_DB: ${db_name}
+      DATABASE_PORT: 5433
+    ports: # isso faz com que a porta 5433 do container seja mapeada para a porta 5433 da máquina host, tornando-a exposta.
+      - "5433:5433"
+    networks:
+      - internal-network
+
+  quarkus:
+    container_name: quarkus
+    image: ${github_username}/compose-example:quarkus
+    build:
+      context: ./
+      dockerfile: Dockerfile.quarkus.arm64 # isso faz com que o docker-compose utilize o Dockerfile.quarkus.x86x64 para criar a imagem do backend
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/{db_name}
+      DATABASE_USER: ${db_username}
+      DATABASE_PASSWORD: ${db_password}
+      DATABASE_DB: ${db_name}
+      EMAIL_USER: ${email_username}
+      EMAIL_PASSWORD: ${email_password}
+      QUARKUS_PORT: 3000
+    ports: # isso faz com que a porta 3000 do container seja mapeada para a porta 3000 da máquina host, tornando-a exposta.
+      - "3000:3000"
+    depends_on: # isso faz com que o container do backend só seja iniciado após o container do banco de dados estar pronto
+      - db
+    networks:
+      - internal-network
+
+  node:
+    container_name: node
+    image: ${github_username}/compose-example:node
+    build:
+      context: ./
+      dockerfile: Dockerfile.nodeapi # isso faz com que o docker-compose utilize o Dockerfile.nodeapi para criar a imagem do node
+    environment:
+      QUARKUS_PORT: 3000
+      QUARKUS_URL: backend
+      QUARKUS_BASEURL: http://backend:3000
+      API_BACKEND_LOGIN: ${backend_api_username}
+      API_BACKEND_PASSWORD: ${backend_api_password}
+      NODE_PORT: 5000
+    networks: # esse serviço não está com a porta exposta, pois não é necessário acessá-lo diretamente
+      - internal-network
+
+# ----- NETWORK -----
+networks: # isso faz com que os containers possam se comunicar entre si através do nome do serviço
+  internal-network:
+    driver: bridge

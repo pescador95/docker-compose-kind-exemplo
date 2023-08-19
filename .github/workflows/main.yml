@@ -1,0 +1,58 @@
+name: Deploy Oracle Cloud
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  db:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Postgres Database Container
+        run: docker-compose -f docker-compose.yml build db
+
+  quarkus:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Quarkus Backend Container
+        run: docker-compose -f docker-compose.yml build quarkus
+
+  node:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build API Telegram Container
+        run: docker-compose -f docker-compose.yml build node
+
+  deploy:
+    needs: [db, quarkus, node]
+    runs-on: ubuntu-latest
+
+    env:
+      SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+      SSH_SERVER: ${{ secrets.SSH_SERVER }}
+      SSH_SERVER_KEY: ${{ secrets.SSH_SERVER_KEY }}
+
+    steps:
+      - name: Add SSH key to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan $SSH_SERVER >> ~/.ssh/known_hosts
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_SERVER_KEY }}
+
+      - name: Connect to Oracle Server and Run Commands to Deploy
+        run: |
+          ssh $SSH_USERNAME@$SSH_SERVER "sudo su -c 'cd ~/${REPOSITORY_PATH} && chmod +x ~/${REPOSITORY_PATH}/run.sh && ./run.sh'"

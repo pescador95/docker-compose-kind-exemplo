@@ -1,0 +1,21 @@
+FROM postgres:latest
+
+# Environment variables
+ENV DATABASE_USER=${DB_USERNAME}
+ENV DATABASE_PASSWORD=${DB_PASSWORD}
+ENV POSTGRES_USER=${DB_USERNAME}
+ENV POSTGRES_PASSWORD=${DB_PASSWORD}
+# Create the database
+ENV DATABASE_DB=${DATABASE_NAME}
+
+#hostname from databse
+ENV DATABASE_HOST=${DB_HOSTNAME}
+
+#port from database
+ENV DATABASE_PORT=5433
+
+# Expose PostgreSQL port
+EXPOSE 5433
+
+# Start PostgreSQL
+CMD ["postgres", "-p", "5433"]
