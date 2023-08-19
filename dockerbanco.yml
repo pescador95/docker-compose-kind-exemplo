@@ -1,0 +1,32 @@
+version: "3.3"
+
+services:
+  db:
+    container_name: db
+    image: compose-example:db
+    volumes:
+      # isso faz com que os dados do banco sejam salvos na pasta db/data a partir do diretório contexto
+      - ./db/data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
+    build:
+      context: ./
+      dockerfile: Dockerfile.postgres # isso faz com que o docker-compose utilize o Dockerfile.postgres para criar a imagem do banco de dados
+    environment:
+      POSTGRES_USER: quarkusapp
+      POSTGRES_PASSWORD: quarkusapp
+      POSTGRES_DB: quarkusapp
+      DATABASE_USER: quarkusapp
+      DATABASE_PASSWORD: quarkusapp
+      DATABASE_DB: quarkusapp
+      DATABASE_PORT: 5433
+    ports:
+      # isso faz com que a porta 5433 do container seja mapeada para a porta 5433 da máquina host, tornando-a exposta.
+      - "5433:5433"
+    networks:
+      - internal-network
+
+# ----- NETWORK -----
+networks:
+  # isso faz com que os containers possam se comunicar entre si através do nome do serviço
+  internal-network:
+    driver: bridge
