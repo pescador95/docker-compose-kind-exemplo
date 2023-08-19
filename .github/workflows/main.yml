@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Postgres Database Container
-        run: docker-compose -f docker-compose.yml build container-db
+        run: docker-compose -f docker-compose.yml build db
 
   quarkus:
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Quarkus Backend Container
-        run: docker-compose -f docker-compose.yml build container-quarkus
+        run: docker-compose -f docker-compose.yml build quarkus
 
   node:
     runs-on: ubuntu-latest
@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build API Node Container
-        run: docker-compose -f docker-compose.yml build container-node
+        run: docker-compose -f docker-compose.yml build node
 
   react:
     runs-on: ubuntu-latest
@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build React Container
-        run: docker-compose -f docker-compose.yml build container-react
+        run: docker-compose -f docker-compose.yml build react
 
   deploy:
     needs: [db, quarkus, node, react]
