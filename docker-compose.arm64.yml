@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   db:
-    container_name: db
+    container_name: container-db
     image: compose-example:db
     volumes:
       # isso faz com que os dados do banco sejam salvos na pasta db/data a partir do diretório contexto
@@ -23,7 +23,7 @@ services:
       - internal-network
 
   quarkus:
-    container_name: quarkus
+    container_name: container-quarkus
     image: compose-example:quarkus
     build:
       context: ./
@@ -46,7 +46,7 @@ services:
       - internal-network
 
   node:
-    container_name: node
+    container_name: container-node
     image: compose-example:node
     build:
       context: ./
@@ -63,7 +63,7 @@ services:
       - internal-network
 
   react:
-  container_name: react
+  container_name: container-react
   image: compose-example:react
   build:
     context: ./

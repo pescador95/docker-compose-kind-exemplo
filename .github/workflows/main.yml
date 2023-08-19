@@ -1,4 +1,4 @@
-name: Deploy Oracle Cloud
+name: Building tests and deploy
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Postgres Database Container
-        run: docker-compose -f docker-compose.yml build db
+        run: docker-compose -f docker-compose.yml build container-db
 
   quarkus:
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Quarkus Backend Container
-        run: docker-compose -f docker-compose.yml build quarkus
+        run: docker-compose -f docker-compose.yml build container-quarkus
 
   node:
     runs-on: ubuntu-latest
@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build API Node Container
-        run: docker-compose -f docker-compose.yml build node
+        run: docker-compose -f docker-compose.yml build container-node
 
   react:
     runs-on: ubuntu-latest
@@ -40,10 +40,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build React Container
-        run: docker-compose -f docker-compose.yml build react
+        run: docker-compose -f docker-compose.yml build container-react
 
   deploy:
-    needs: [db, quarkus, node]
+    needs: [db, quarkus, node, react]
     runs-on: ubuntu-latest
 
     if: ${{ false }} # Remova essa linha para habilitar o deploy
