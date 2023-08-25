@@ -15,6 +15,15 @@ jobs:
       - name: Build Postgres Database Container
         run: docker-compose -f docker-compose.yml build db
 
+  redis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Postgres Database Container
+        run: docker-compose -f docker-compose.yml build redis
+
   quarkus:
     runs-on: ubuntu-latest
     steps:
@@ -43,7 +52,7 @@ jobs:
         run: docker-compose -f docker-compose.yml build react
 
   deploy:
-    needs: [db, quarkus, node, react]
+    needs: [db, quarkus, node, react, redis]
     runs-on: ubuntu-latest
 
     if: ${{ false }} # Remova essa linha para habilitar o deploy
