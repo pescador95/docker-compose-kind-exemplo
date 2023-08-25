@@ -8,8 +8,8 @@ import static app.core.utils.StringBuilder.makeQueryString;
 public class PersonalActivityFilters {
 
     public static String makePersonalActivityQueryStringByFilters(Long id, String queixaPrincipal, String medicamentos,
-                                                                  String diagnosticoClinico, String comorbidades, String ocupacao, String responsavelContato,
-                                                                  String personName) {
+            String diagnosticoClinico, String comorbidades, String ocupacao, String responsibleContato,
+            String personName) {
         String queryString = "";
 
         if (BasicFunctions.isValid(id)) {
@@ -30,8 +30,8 @@ public class PersonalActivityFilters {
         if (BasicFunctions.isNotEmpty(ocupacao)) {
             queryString += makeQueryString(ocupacao, "ocupacao", PersonalActivity.class);
         }
-        if (BasicFunctions.isNotEmpty(responsavelContato)) {
-            queryString += makeQueryString(responsavelContato, "responsavelContato", PersonalActivity.class);
+        if (BasicFunctions.isNotEmpty(responsibleContato)) {
+            queryString += makeQueryString(responsibleContato, "responsibleContato", PersonalActivity.class);
         }
         if (BasicFunctions.isNotEmpty(personName)) {
             queryString += makeQueryString(personName, "personName", PersonalActivity.class);

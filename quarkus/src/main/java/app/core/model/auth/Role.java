@@ -7,6 +7,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.security.jpa.RolesValue;
 
 import javax.persistence.*;
+
 @Entity
 @Table(name = "role")
 public class Role extends PanacheEntityBase {
@@ -44,7 +45,7 @@ public class Role extends PanacheEntityBase {
         return BasicFunctions.isNotEmpty(admin) && this.admin;
     }
 
-    public void setUsuario() {
+    public void setUser() {
         this.id = User.USER;
     }
 

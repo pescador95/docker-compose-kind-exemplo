@@ -1,406 +1,313 @@
-create sequence address_id_seq start 1 increment 1;
-create sequence app_user_id_seq start 1 increment 1;
-create sequence appointments_id_seq start 1 increment 1;
-create sequence fichaavaliacao_id_seq start 1 increment 1;
-create sequence gender_id_seq start 1 increment 1;
-create sequence organization_id_seq start 1 increment 1;
-create sequence personalactivity_id_seq start 1 increment 1;
-create sequence pessoa_id_seq start 1 increment 1;
-create sequence profile_id_seq start 1 increment 1;
-create sequence profileaccess_id_seq start 1 increment 1;
-create sequence role_id_seq start 1 increment 1;
-create sequence routine_id_seq start 1 increment 1;
-create sequence serviceType_id_seq start 1 increment 1;
-create sequence statusAgendamento_id_seq start 1 increment 1;
+CREATE SEQUENCE ADDRESS_ID_SEQ START 1 INCREMENT 1;
 
-    create table address (
-       id int8 not null,
-        active boolean,
-        city varchar(255),
-        complement varchar(255),
-        deletedAt timestamp,
-        number int8,
-        publicPlace varchar(255),
-        state varchar(255),
-        updatedAt timestamp,
-        zipCode varchar(255),
-        userId int8,
-        user_id int8,
-        primary key (id)
-    );
+CREATE SEQUENCE APP_USER_ID_SEQ START 1 INCREMENT 1;
 
-    create table app_user (
-       id int8 not null,
-        active boolean,
-        bot boolean,
-        changePassword boolean,
-        deletedAt timestamp,
-        login varchar(255) not null,
-        password varchar(255) not null,
-        professionalName varchar(255),
-        updatedAt timestamp,
-        updatedBy varchar(255),
-        user varchar(255),
-        organizationDefaultId int8,
-        personId int8,
-        primary key (id)
-    );
+CREATE SEQUENCE APPOINTMENTS_ID_SEQ START 1 INCREMENT 1;
 
-    create table appointments (
-       id int8 not null,
-        active boolean,
-        appointmentDate date,
-        appointmentTime time,
-        deletedAt timestamp,
-        personName varchar(255),
-        preference boolean,
-        professionalName varchar(255),
-        updatedAt timestamp,
-        appointmentsOldId int8,
-        bookingStatusId int8,
-        organizationId int8,
-        personId int8,
-        professionalId int8,
-        serviceType int8,
-        userId int8,
-        primary key (id)
-    );
+CREATE SEQUENCE FICHAAVALIACAO_ID_SEQ START 1 INCREMENT 1;
 
-    create table bookingStatus (
-       id int8 not null,
-        status varchar(255),
-        primary key (id)
-    );
+CREATE SEQUENCE GENDER_ID_SEQ START 1 INCREMENT 1;
 
-    create table gender (
-       id int8 not null,
-        gender varchar(255),
-        primary key (id)
-    );
+CREATE SEQUENCE ORGANIZATION_ID_SEQ START 1 INCREMENT 1;
 
-    create table organization (
-       id int8 not null,
-        active boolean,
-        cellphone varchar(255),
-        deletedAt timestamp,
-        email varchar(255),
-        identityDocument varchar(255),
-        name varchar(255),
-        telephone varchar(255),
-        updatedAt timestamp,
-        addressId int8,
-        personal_activity_id int8,
-        serviceType_id int8,
-        userId int8,
-        user_id int8,
-        primary key (id)
-    );
+CREATE SEQUENCE PERSONALACTIVITY_ID_SEQ START 1 INCREMENT 1;
 
-    create table person (
-       id int8 not null,
-        active boolean,
-        birthday date,
-        cellphone varchar(255),
-        deletedAt timestamp,
-        document varchar(255),
-        email varchar(255),
-        name varchar(255),
-        telephone varchar(255),
-        updatedAt timestamp,
-        addressId int8,
-        generoId int8,
-        userId int8,
-        primary key (id)
-    );
+CREATE SEQUENCE PERSON_ID_SEQ START 1 INCREMENT 1;
 
-    create table personalActivity (
-       id int8 not null,
-        active boolean,
-        deletedAt timestamp,
-        occupation varchar(255),
-        personName varchar(255),
-        responsibleContact varchar(255),
-        updatedAt timestamp,
-        personId int8,
-        userId int8,
-        primary key (id)
-    );
+CREATE SEQUENCE PROFILE_ID_SEQ START 1 INCREMENT 1;
 
-    create table profile (
-       id int8 not null,
-        createAt timestamp,
-        fileReference varchar(255),
-        fileSize int8,
-        keyName varchar(255),
-        mimetype varchar(255),
-        originalName varchar(255),
-        personName varchar(255),
-        personalactivityId int8,
-        primary key (id)
-    );
+CREATE SEQUENCE PROFILEACCESS_ID_SEQ START 1 INCREMENT 1;
 
-    create table profileAccess (
-       id int8 not null,
-        create boolean,
-        delete boolean,
-        name varchar(255),
-        read boolean,
-        update boolean,
-        updatedAt timestamp,
-        userId int8,
-        primary key (id)
-    );
+CREATE SEQUENCE ROLE_ID_SEQ START 1 INCREMENT 1;
 
-    create table role (
-       id int8 not null,
-        admin boolean,
-        role varchar(255),
-        user_id int8,
-        primary key (id)
-    );
+CREATE SEQUENCE ROUTINE_ID_SEQ START 1 INCREMENT 1;
 
-    create table routine (
-       id int8 not null,
-        icon varchar(255),
-        name varchar(255),
-        path varchar(255),
-        title varchar(255),
-        updatedAt timestamp,
-        userId int8,
-        primary key (id)
-    );
+CREATE SEQUENCE SERVICETYPE_ID_SEQ START 1 INCREMENT 1;
 
-    create table routineprofileaccess (
-       profileaccessId int8 not null,
-        routineId int8 not null
-    );
+CREATE SEQUENCE STATUSAGENDAMENTO_ID_SEQ START 1 INCREMENT 1;
 
-    create table serviceType (
-       id int8 not null,
-        serviceType varchar(255),
-        primary key (id)
-    );
+CREATE TABLE ADDRESS (
+   ID INT8 NOT NULL,
+   ACTIVE BOOLEAN,
+   CITY VARCHAR(255),
+   COMPLEMENT VARCHAR(255),
+   DELETEDAT TIMESTAMP,
+   NUMBER INT8,
+   PUBLICPLACE VARCHAR(255),
+   STATE VARCHAR(255),
+   UPDATEDAT TIMESTAMP,
+   ZIPCODE VARCHAR(255),
+   USERID INT8,
+   USER_ID INT8,
+   PRIMARY KEY (ID)
+);
 
-    create table serviceTypeorganizations (
-       serviceTypeId int8 not null,
-        organizationId int8 not null
-    );
+CREATE TABLE APP_USER (
+   ID INT8 NOT NULL,
+   ACTIVE BOOLEAN,
+   BOT BOOLEAN,
+   CHANGEPASSWORD BOOLEAN,
+   DELETEDAT TIMESTAMP,
+   LOGIN VARCHAR(255) NOT NULL,
+   PASSWORD VARCHAR(255) NOT NULL,
+   PROFESSIONALNAME VARCHAR(255),
+   UPDATEDAT TIMESTAMP,
+   UPDATEDBY VARCHAR(255),
+   USER VARCHAR(255),
+   ORGANIZATIONDEFAULTID INT8,
+   PERSONID INT8,
+   PRIMARY KEY (ID)
+);
 
-    create table servicetypesusers (
-       professionalId int8 not null,
-        serviceTypeId int8 not null
-    );
+CREATE TABLE APPOINTMENTS (
+   ID INT8 NOT NULL,
+   ACTIVE BOOLEAN,
+   APPOINTMENTDATE DATE,
+   APPOINTMENTTIME TIME,
+   DELETEDAT TIMESTAMP,
+   PERSONNAME VARCHAR(255),
+   PREFERENCE BOOLEAN,
+   PROFESSIONALNAME VARCHAR(255),
+   UPDATEDAT TIMESTAMP,
+   APPOINTMENTSOLDID INT8,
+   BOOKINGSTATUSID INT8,
+   ORGANIZATIONID INT8,
+   PERSONID INT8,
+   PROFESSIONALID INT8,
+   SERVICETYPE INT8,
+   USERID INT8,
+   PRIMARY KEY (ID)
+);
 
-    create table task (
-       id int8 not null,
-        active boolean,
-        avaliation varchar(255),
-        deletedAt timestamp,
-        summary varchar(255),
-        task varchar(255),
-        taskDate timestamp,
-        updatedAt timestamp,
-        personalactivityId int8,
-        userId int8,
-        primary key (id)
-    );
+CREATE TABLE BOOKINGSTATUS (
+   ID INT8 NOT NULL,
+   STATUS VARCHAR(255),
+   PRIMARY KEY (ID)
+);
 
-    create table userorganization (
-       userId int8 not null,
-        organizationId int8 not null
-    );
+CREATE TABLE GENDER (
+   ID INT8 NOT NULL,
+   GENDER VARCHAR(255),
+   PRIMARY KEY (ID)
+);
 
-    create table userroles (
-       userId int8 not null,
-        roleId int8 not null
-    );
-create index iuserak1 on app_user (personId, login, organizationDefaultId, active);
-create index iappointmentsak1 on appointments (appointmentDate, appointmentTime, personId, professionalId, organizationId, bookingStatusId, active);
-create index ipessoaak1 on person (name, telephone, cellphone, birthday, document, active);
-create index ipersonalActivityak1 on personalActivity (personId, active);
-create index ifichaavaliacaoak1 on task (taskDate, personalactivityId, active);
+CREATE TABLE ORGANIZATION (
+   ID INT8 NOT NULL,
+   ACTIVE BOOLEAN,
+   CELLPHONE VARCHAR(255),
+   DELETEDAT TIMESTAMP,
+   EMAIL VARCHAR(255),
+   IDENTITYDOCUMENT VARCHAR(255),
+   NAME VARCHAR(255),
+   TELEPHONE VARCHAR(255),
+   UPDATEDAT TIMESTAMP,
+   ADDRESSID INT8,
+   PERSONAL_ACTIVITY_ID INT8,
+   SERVICETYPE_ID INT8,
+   USERID INT8,
+   USER_ID INT8,
+   PRIMARY KEY (ID)
+);
 
-    alter table if exists address
-       add constraint FKigv0mculvsdbsj25spun5ovv5
-       foreign key (userId)
-       references app_user;
+CREATE TABLE PERSON (
+   ID INT8 NOT NULL,
+   ACTIVE BOOLEAN,
+   BIRTHDAY DATE,
+   CELLPHONE VARCHAR(255),
+   DELETEDAT TIMESTAMP,
+   DOCUMENT VARCHAR(255),
+   EMAIL VARCHAR(255),
+   NAME VARCHAR(255),
+   TELEPHONE VARCHAR(255),
+   UPDATEDAT TIMESTAMP,
+   ADDRESSID INT8,
+   GENEROID INT8,
+   USERID INT8,
+   PRIMARY KEY (ID)
+);
 
-    alter table if exists address
-       add constraint FKe4etc0n243br1d15pcmbt930w
-       foreign key (user_id)
-       references app_user;
+CREATE TABLE PERSONALACTIVITY (
+   ID INT8 NOT NULL,
+   ACTIVE BOOLEAN,
+   DELETEDAT TIMESTAMP,
+   OCCUPATION VARCHAR(255),
+   PERSONNAME VARCHAR(255),
+   RESPONSIBLECONTACT VARCHAR(255),
+   UPDATEDAT TIMESTAMP,
+   PERSONID INT8,
+   USERID INT8,
+   PRIMARY KEY (ID)
+);
 
-    alter table if exists app_user
-       add constraint FKpjn3y2n1axn7hujk5bija9ax4
-       foreign key (organizationDefaultId)
-       references organization;
+CREATE TABLE PROFILE (
+   ID INT8 NOT NULL,
+   CREATEAT TIMESTAMP,
+   FILEREFERENCE VARCHAR(255),
+   FILESIZE INT8,
+   KEYNAME VARCHAR(255),
+   MIMETYPE VARCHAR(255),
+   ORIGINALNAME VARCHAR(255),
+   PERSONNAME VARCHAR(255),
+   PERSONALACTIVITYID INT8,
+   PRIMARY KEY (ID)
+);
 
-    alter table if exists app_user
-       add constraint FKiqkswjmtqneo4qyll8lu865e0
-       foreign key (personId)
-       references person;
+CREATE TABLE PROFILEACCESS (
+   ID INT8 NOT NULL,
+   CREATE BOOLEAN,
+   DELETE BOOLEAN,
+   NAME VARCHAR(255),
+   READ BOOLEAN,
+   UPDATE BOOLEAN,
+   UPDATEDAT TIMESTAMP,
+   USERID INT8,
+   PRIMARY KEY (ID)
+);
 
-    alter table if exists appointments
-       add constraint FKtmwsbjwwhomi9ld461f520hd0
-       foreign key (appointmentsOldId)
-       references appointments;
+CREATE TABLE ROLE (
+   ID INT8 NOT NULL,
+   ADMIN BOOLEAN,
+   ROLE VARCHAR(255),
+   USER_ID INT8,
+   PRIMARY KEY (ID)
+);
 
-    alter table if exists appointments
-       add constraint FKlu4p4h5vfnbx3nq4pvkupmiyk
-       foreign key (bookingStatusId)
-       references bookingStatus;
+CREATE TABLE ROUTINE (
+   ID INT8 NOT NULL,
+   ICON VARCHAR(255),
+   NAME VARCHAR(255),
+   PATH VARCHAR(255),
+   TITLE VARCHAR(255),
+   UPDATEDAT TIMESTAMP,
+   USERID INT8,
+   PRIMARY KEY (ID)
+);
 
-    alter table if exists appointments
-       add constraint FK77rpceha7dpe8ovdiswc0ekb4
-       foreign key (organizationId)
-       references organization;
+CREATE TABLE ROUTINEPROFILEACCESS (
+   PROFILEACCESSID INT8 NOT NULL,
+   ROUTINEID INT8 NOT NULL
+);
 
-    alter table if exists appointments
-       add constraint FKml38u0jykei620yr6i3yp1cv2
-       foreign key (personId)
-       references person;
+CREATE TABLE SERVICETYPE (
+   ID INT8 NOT NULL,
+   SERVICETYPE VARCHAR(255),
+   PRIMARY KEY (ID)
+);
 
-    alter table if exists appointments
-       add constraint FKrftgxhf6nmxu75aonabbo1wmc
-       foreign key (professionalId)
-       references app_user;
+CREATE TABLE SERVICETYPEORGANIZATIONS (
+   SERVICETYPEID INT8 NOT NULL,
+   ORGANIZATIONID INT8 NOT NULL
+);
 
-    alter table if exists appointments
-       add constraint FKa5ev07ejnnpmjj600ri45vy83
-       foreign key (serviceType)
-       references serviceType;
+CREATE TABLE SERVICETYPESUSERS (
+   PROFESSIONALID INT8 NOT NULL,
+   SERVICETYPEID INT8 NOT NULL
+);
 
-    alter table if exists appointments
-       add constraint FKknsajpu07otwi7c9texgl7axh
-       foreign key (userId)
-       references app_user;
+CREATE TABLE TASK (
+   ID INT8 NOT NULL,
+   ACTIVE BOOLEAN,
+   AVALIATION VARCHAR(255),
+   DELETEDAT TIMESTAMP,
+   SUMMARY VARCHAR(255),
+   TASK VARCHAR(255),
+   TASKDATE TIMESTAMP,
+   UPDATEDAT TIMESTAMP,
+   PERSONALACTIVITYID INT8,
+   USERID INT8,
+   PRIMARY KEY (ID)
+);
 
-    alter table if exists organization
-       add constraint FKkwxrfy6drw2u2u57thawy3yc1
-       foreign key (addressId)
-       references address;
+CREATE TABLE USERORGANIZATION (
+   USERID INT8 NOT NULL,
+   ORGANIZATIONID INT8 NOT NULL
+);
 
-    alter table if exists organization
-       add constraint FKkbgqvwfgnsp44hxyt2vjytwba
-       foreign key (personal_activity_id)
-       references personalActivity;
+CREATE TABLE USERROLES (
+   USERID INT8 NOT NULL,
+   ROLEID INT8 NOT NULL
+);
 
-    alter table if exists organization
-       add constraint FK3f61sx00inmu4673a6jlpshu5
-       foreign key (serviceType_id)
-       references serviceType;
+CREATE INDEX IUSERAK1 ON APP_USER (PERSONID, LOGIN, ORGANIZATIONDEFAULTID, ACTIVE);
 
-    alter table if exists organization
-       add constraint FKpc5whytqbpbxcpyd9008iys4o
-       foreign key (userId)
-       references app_user;
+CREATE INDEX IAPPOINTMENTSAK1 ON APPOINTMENTS (APPOINTMENTDATE, APPOINTMENTTIME, PERSONID, PROFESSIONALID, ORGANIZATIONID, BOOKINGSTATUSID, ACTIVE);
 
-    alter table if exists organization
-       add constraint FK8cge1wrx5wriwwilhlmt32ujx
-       foreign key (user_id)
-       references app_user;
+CREATE INDEX IPERSONAK1 ON PERSON (NAME, TELEPHONE, CELLPHONE, BIRTHDAY, DOCUMENT, ACTIVE);
 
-    alter table if exists person
-       add constraint FKf0h7aqcynkctw6mq6b058q6o7
-       foreign key (addressId)
-       references address;
+CREATE INDEX IPERSONALACTIVITYAK1 ON PERSONALACTIVITY (PERSONID, ACTIVE);
 
-    alter table if exists person
-       add constraint FKhpnyloptj1qbx64sscfng1jq9
-       foreign key (generoId)
-       references gender;
+CREATE INDEX IFICHAAVALIACAOAK1 ON TASK (TASKDATE, PERSONALACTIVITYID, ACTIVE);
 
-    alter table if exists person
-       add constraint FKkkj0qykkhqgwow8fxndix92fy
-       foreign key (userId)
-       references app_user;
+ALTER TABLE IF EXISTS ADDRESS ADD CONSTRAINT FKIGV0MCULVSDBSJ25SPUN5OVV5 FOREIGN KEY (USERID) REFERENCES APP_USER;
 
-    alter table if exists personalActivity
-       add constraint FKlga9l4xc7k1ofw67lv8flrj90
-       foreign key (personId)
-       references person;
+ALTER TABLE IF EXISTS ADDRESS ADD CONSTRAINT FKE4ETC0N243BR1D15PCMBT930W FOREIGN KEY (USER_ID) REFERENCES APP_USER;
 
-    alter table if exists personalActivity
-       add constraint FKsu171inm186b5mnrjlxmle27x
-       foreign key (userId)
-       references app_user;
+ALTER TABLE IF EXISTS APP_USER ADD CONSTRAINT FKPJN3Y2N1AXN7HUJK5BIJA9AX4 FOREIGN KEY (ORGANIZATIONDEFAULTID) REFERENCES ORGANIZATION;
 
-    alter table if exists profile
-       add constraint FKt1hgtnrlx0swokohm9ieno4f7
-       foreign key (personalactivityId)
-       references personalActivity;
+ALTER TABLE IF EXISTS APP_USER ADD CONSTRAINT FKIQKSWJMTQNEO4QYLL8LU865E0 FOREIGN KEY (PERSONID) REFERENCES PERSON;
 
-    alter table if exists profileAccess
-       add constraint FK95r3o0jss0iqix9797o76dkiq
-       foreign key (userId)
-       references app_user;
+ALTER TABLE IF EXISTS APPOINTMENTS ADD CONSTRAINT FKTMWSBJWWHOMI9LD461F520HD0 FOREIGN KEY (APPOINTMENTSOLDID) REFERENCES APPOINTMENTS;
 
-    alter table if exists role
-       add constraint FK4dhnthkjee7rc3spnhu8ed3rc
-       foreign key (user_id)
-       references app_user;
+ALTER TABLE IF EXISTS APPOINTMENTS ADD CONSTRAINT FKLU4P4H5VFNBX3NQ4PVKUPMIYK FOREIGN KEY (BOOKINGSTATUSID) REFERENCES BOOKINGSTATUS;
 
-    alter table if exists routine
-       add constraint FK35ihrtpjx8c8j26dx7tvnafyw
-       foreign key (userId)
-       references app_user;
+ALTER TABLE IF EXISTS APPOINTMENTS ADD CONSTRAINT FK77RPCEHA7DPE8OVDISWC0EKB4 FOREIGN KEY (ORGANIZATIONID) REFERENCES ORGANIZATION;
 
-    alter table if exists routineprofileaccess
-       add constraint FK84klusi0bmdi5ccgcxpws2u5m
-       foreign key (routineId)
-       references routine;
+ALTER TABLE IF EXISTS APPOINTMENTS ADD CONSTRAINT FKML38U0JYKEI620YR6I3YP1CV2 FOREIGN KEY (PERSONID) REFERENCES PERSON;
 
-    alter table if exists routineprofileaccess
-       add constraint FKiybb96wd7r665k7wkvw1co85e
-       foreign key (profileaccessId)
-       references profileAccess;
+ALTER TABLE IF EXISTS APPOINTMENTS ADD CONSTRAINT FKRFTGXHF6NMXU75AONABBO1WMC FOREIGN KEY (PROFESSIONALID) REFERENCES APP_USER;
 
-    alter table if exists serviceTypeorganizations
-       add constraint FK89diew1dm2ilc9lqp9cd1vv60
-       foreign key (organizationId)
-       references organization;
+ALTER TABLE IF EXISTS APPOINTMENTS ADD CONSTRAINT FKA5EV07EJNNPMJJ600RI45VY83 FOREIGN KEY (SERVICETYPE) REFERENCES SERVICETYPE;
 
-    alter table if exists serviceTypeorganizations
-       add constraint FKh8rhfmkl7ld8ahj48rqp3ow4r
-       foreign key (serviceTypeId)
-       references serviceType;
+ALTER TABLE IF EXISTS APPOINTMENTS ADD CONSTRAINT FKKNSAJPU07OTWI7C9TEXGL7AXH FOREIGN KEY (USERID) REFERENCES APP_USER;
 
-    alter table if exists servicetypesusers
-       add constraint FKcal1gj4i0gajylcoekpfbjtuk
-       foreign key (serviceTypeId)
-       references serviceType;
+ALTER TABLE IF EXISTS ORGANIZATION ADD CONSTRAINT FKKWXRFY6DRW2U2U57THAWY3YC1 FOREIGN KEY (ADDRESSID) REFERENCES ADDRESS;
 
-    alter table if exists servicetypesusers
-       add constraint FKmbud71b01ubfmob0wrjtt9us6
-       foreign key (professionalId)
-       references app_user;
+ALTER TABLE IF EXISTS ORGANIZATION ADD CONSTRAINT FKKBGQVWFGNSP44HXYT2VJYTWBA FOREIGN KEY (PERSONAL_ACTIVITY_ID) REFERENCES PERSONALACTIVITY;
 
-    alter table if exists task
-       add constraint FK577p2tn7uc72latlunjdogl3s
-       foreign key (personalactivityId)
-       references personalActivity;
+ALTER TABLE IF EXISTS ORGANIZATION ADD CONSTRAINT FK3F61SX00INMU4673A6JLPSHU5 FOREIGN KEY (SERVICETYPE_ID) REFERENCES SERVICETYPE;
 
-    alter table if exists task
-       add constraint FKk4f4itlykev1j3xxoms1c0jk0
-       foreign key (userId)
-       references app_user;
+ALTER TABLE IF EXISTS ORGANIZATION ADD CONSTRAINT FKPC5WHYTQBPBXCPYD9008IYS4O FOREIGN KEY (USERID) REFERENCES APP_USER;
 
-    alter table if exists userorganization
-       add constraint FKihxv5q1k4mfom5soj5mjmyg6t
-       foreign key (organizationId)
-       references organization;
+ALTER TABLE IF EXISTS ORGANIZATION ADD CONSTRAINT FK8CGE1WRX5WRIWWILHLMT32UJX FOREIGN KEY (USER_ID) REFERENCES APP_USER;
 
-    alter table if exists userorganization
-       add constraint FKc30qpfm1xv6pvbqt6as0tqum4
-       foreign key (userId)
-       references app_user;
+ALTER TABLE IF EXISTS PERSON ADD CONSTRAINT FKF0H7AQCYNKCTW6MQ6B058Q6O7 FOREIGN KEY (ADDRESSID) REFERENCES ADDRESS;
 
-    alter table if exists userroles
-       add constraint FKpyduh9ia2fnx3o8pc3eilc3ha
-       foreign key (roleId)
-       references role;
+ALTER TABLE IF EXISTS PERSON ADD CONSTRAINT FKHPNYLOPTJ1QBX64SSCFNG1JQ9 FOREIGN KEY (GENEROID) REFERENCES GENDER;
 
-    alter table if exists userroles
-       add constraint FK1n0gi1r1b5enqhqx3orltpb02
-       foreign key (userId)
-       references app_user;
+ALTER TABLE IF EXISTS PERSON ADD CONSTRAINT FKKKJ0QYKKHQGWOW8FXNDIX92FY FOREIGN KEY (USERID) REFERENCES APP_USER;
+
+ALTER TABLE IF EXISTS PERSONALACTIVITY ADD CONSTRAINT FKLGA9L4XC7K1OFW67LV8FLRJ90 FOREIGN KEY (PERSONID) REFERENCES PERSON;
+
+ALTER TABLE IF EXISTS PERSONALACTIVITY ADD CONSTRAINT FKSU171INM186B5MNRJLXMLE27X FOREIGN KEY (USERID) REFERENCES APP_USER;
+
+ALTER TABLE IF EXISTS PROFILE ADD CONSTRAINT FKT1HGTNRLX0SWOKOHM9IENO4F7 FOREIGN KEY (PERSONALACTIVITYID) REFERENCES PERSONALACTIVITY;
+
+ALTER TABLE IF EXISTS PROFILEACCESS ADD CONSTRAINT FK95R3O0JSS0IQIX9797O76DKIQ FOREIGN KEY (USERID) REFERENCES APP_USER;
+
+ALTER TABLE IF EXISTS ROLE ADD CONSTRAINT FK4DHNTHKJEE7RC3SPNHU8ED3RC FOREIGN KEY (USER_ID) REFERENCES APP_USER;
+
+ALTER TABLE IF EXISTS ROUTINE ADD CONSTRAINT FK35IHRTPJX8C8J26DX7TVNAFYW FOREIGN KEY (USERID) REFERENCES APP_USER;
+
+ALTER TABLE IF EXISTS ROUTINEPROFILEACCESS ADD CONSTRAINT FK84KLUSI0BMDI5CCGCXPWS2U5M FOREIGN KEY (ROUTINEID) REFERENCES ROUTINE;
+
+ALTER TABLE IF EXISTS ROUTINEPROFILEACCESS ADD CONSTRAINT FKIYBB96WD7R665K7WKVW1CO85E FOREIGN KEY (PROFILEACCESSID) REFERENCES PROFILEACCESS;
+
+ALTER TABLE IF EXISTS SERVICETYPEORGANIZATIONS ADD CONSTRAINT FK89DIEW1DM2ILC9LQP9CD1VV60 FOREIGN KEY (ORGANIZATIONID) REFERENCES ORGANIZATION;
+
+ALTER TABLE IF EXISTS SERVICETYPEORGANIZATIONS ADD CONSTRAINT FKH8RHFMKL7LD8AHJ48RQP3OW4R FOREIGN KEY (SERVICETYPEID) REFERENCES SERVICETYPE;
+
+ALTER TABLE IF EXISTS SERVICETYPESUSERS ADD CONSTRAINT FKCAL1GJ4I0GAJYLCOEKPFBJTUK FOREIGN KEY (SERVICETYPEID) REFERENCES SERVICETYPE;
+
+ALTER TABLE IF EXISTS SERVICETYPESUSERS ADD CONSTRAINT FKMBUD71B01UBFMOB0WRJTT9US6 FOREIGN KEY (PROFESSIONALID) REFERENCES APP_USER;
+
+ALTER TABLE IF EXISTS TASK ADD CONSTRAINT FK577P2TN7UC72LATLUNJDOGL3S FOREIGN KEY (PERSONALACTIVITYID) REFERENCES PERSONALACTIVITY;
+
+ALTER TABLE IF EXISTS TASK ADD CONSTRAINT FKK4F4ITLYKEV1J3XXOMS1C0JK0 FOREIGN KEY (USERID) REFERENCES APP_USER;
+
+ALTER TABLE IF EXISTS USERORGANIZATION ADD CONSTRAINT FKIHXV5Q1K4MFOM5SOJ5MJMYG6T FOREIGN KEY (ORGANIZATIONID) REFERENCES ORGANIZATION;
+
+ALTER TABLE IF EXISTS USERORGANIZATION ADD CONSTRAINT FKC30QPFM1XV6PVBQT6AS0TQUM4 FOREIGN KEY (USERID) REFERENCES APP_USER;
+
+ALTER TABLE IF EXISTS USERROLES ADD CONSTRAINT FKPYDUH9IA2FNX3O8PC3EILC3HA FOREIGN KEY (ROLEID) REFERENCES ROLE;
+
+ALTER TABLE IF EXISTS USERROLES ADD CONSTRAINT FK1N0GI1R1B5ENQHQX3ORLTPB02 FOREIGN KEY (USERID) REFERENCES APP_USER;

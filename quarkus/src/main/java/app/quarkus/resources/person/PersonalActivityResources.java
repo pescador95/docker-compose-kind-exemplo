@@ -62,7 +62,7 @@ public class PersonalActivityResources {
             @QueryParam("diagnosticoClinico") String diagnosticoClinico,
             @QueryParam("comorbidades") String comorbidades,
             @QueryParam("ocupacao") String ocupacao,
-            @QueryParam("responsavelContato") String responsavelContato,
+            @QueryParam("responsibleContato") String responsibleContato,
             @QueryParam("personName") String personName,
             @QueryParam("sort") @DefaultValue("desc") @NotNull String sortQuery,
             @QueryParam("page") @DefaultValue("0") int pageIndex,
@@ -70,7 +70,7 @@ public class PersonalActivityResources {
             @QueryParam("active") @DefaultValue("true") Boolean active,
             @QueryParam("strgOrder") @DefaultValue("id") String strgOrder, @Context @NotNull SecurityContext context) {
         String queryString = makePersonalActivityQueryStringByFilters(id, queixaPrincipal, medicamentos,
-                diagnosticoClinico, comorbidades, ocupacao, responsavelContato, personName);
+                diagnosticoClinico, comorbidades, ocupacao, responsibleContato, personName);
         query = "active = " + active + " " + queryString + " order by " + strgOrder + " " + sortQuery;
         PanacheQuery<PersonalActivity> personalActivity;
         personalActivity = PersonalActivity.find(query);

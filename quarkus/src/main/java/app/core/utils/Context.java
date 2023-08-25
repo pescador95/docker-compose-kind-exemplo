@@ -1,6 +1,7 @@
 package app.core.utils;
 
 import app.quarkus.model.person.User;
+import io.smallrye.jwt.auth.principal.DefaultJWTCallerPrincipal;
 import org.jetbrains.annotations.NotNull;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -31,8 +32,16 @@ public class Context {
         return User.find("bot = true and active = true").firstResult();
     }
 
-    public static Boolean isUserAdmin(User pUsuario) {
-        User user = User.find("login = ?1 and active = true", pUsuario.login.toLowerCase()).firstResult();
+    public static String getContextUserKey(@javax.ws.rs.core.Context @NotNull
+                                           SecurityContext context) {
+        if (BasicFunctions.isNotEmpty(context.getUserPrincipal())) {
+            return ((DefaultJWTCallerPrincipal) context.getUserPrincipal()).getRawToken();
+        }
+        return "";
+    }
+
+    public static Boolean isUserAdmin(User pUser) {
+        User user = User.find("login = ?1 and active = true", pUser.login.toLowerCase()).firstResult();
 
         if (user.hasRole()) {
             return user.admin();
@@ -40,8 +49,8 @@ public class Context {
         return false;
     }
 
-    public static Boolean isUserBot(User pUsuario) {
-        User user = User.find("login = ?1 and active = true", pUsuario.login.toLowerCase()).firstResult();
+    public static Boolean isUserBot(User pUser) {
+        User user = User.find("login = ?1 and active = true", pUser.login.toLowerCase()).firstResult();
 
         if (user.hasRole()) {
             return !user.user();

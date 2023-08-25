@@ -33,17 +33,17 @@ public class UserController {
     private User userAuth;
     private Person person;
 
-    public Response addUser(@NotNull User pUsuario) {
+    public Response addUser(@NotNull User pUser) {
 
         responses = new Responses();
         responses.messages = new ArrayList<>();
         userAuth = Context.getContextUser(context);
 
-        if (BasicFunctions.isNotEmpty(pUsuario) && BasicFunctions.isNotEmpty(pUsuario.login)) {
+        if (BasicFunctions.isNotEmpty(pUser) && BasicFunctions.isNotEmpty(pUser.login)) {
 
-            if (BasicFunctions.isNotEmpty(pUsuario) && BasicFunctions.isNotEmpty(pUsuario.login)) {
+            if (BasicFunctions.isNotEmpty(pUser) && BasicFunctions.isNotEmpty(pUser.login)) {
 
-                user = User.find("login = ?1 and active = true", pUsuario.login.toLowerCase()).firstResult();
+                user = User.find("login = ?1 and active = true", pUser.login.toLowerCase()).firstResult();
             }
         } else {
             responses.messages.add("Por favor, verifique o login!");
@@ -64,47 +64,47 @@ public class UserController {
 
         Role roleDefault;
 
-        if (BasicFunctions.isNotEmpty(pUsuario.organizations)) {
-            pUsuario.organizations.forEach(organization -> organizationsId.add(organization.id));
+        if (BasicFunctions.isNotEmpty(pUser.organizations)) {
+            pUser.organizations.forEach(organization -> organizationsId.add(organization.id));
             organizations = Organization.list("id in ?1", organizationsId);
         }
 
-        if (BasicFunctions.isNotEmpty(pUsuario.serviceTypes)) {
-            pUsuario.serviceTypes.forEach(serviceType -> tiposAgendamentosId.add(serviceType.id));
+        if (BasicFunctions.isNotEmpty(pUser.serviceTypes)) {
+            pUser.serviceTypes.forEach(serviceType -> tiposAgendamentosId.add(serviceType.id));
             serviceTypes = ServiceType.list("id in ?1", tiposAgendamentosId);
         }
 
-        if (BasicFunctions.isNotEmpty(pUsuario.person) && pUsuario.person.isValid()) {
-            person = Person.findById(pUsuario.person.id);
+        if (BasicFunctions.isNotEmpty(pUser.person) && pUser.person.isValid()) {
+            person = Person.findById(pUser.person.id);
         }
 
-        if (pUsuario.hasRole() && !pUsuario.bot) {
-            pUsuario.role.forEach(role -> privilegioId.add(role.id));
+        if (pUser.hasRole() && !pUser.bot) {
+            pUser.role.forEach(role -> privilegioId.add(role.id));
             roles = Role.list("id in ?1", privilegioId);
             roles.removeIf(x -> x.id.equals(User.BOT));
         }
 
         if (BasicFunctions.isEmpty(user) && (!BasicFunctions.isEmpty(organizations))
                 && (BasicFunctions.isNotEmpty(person))
-                && (pUsuario.bot() || !(BasicFunctions.isEmpty(roles) && !pUsuario.bot()))) {
+                && (pUser.bot() || !(BasicFunctions.isEmpty(roles) && !pUser.bot()))) {
             user = new User();
 
-            if (BasicFunctions.isNotEmpty(pUsuario.login)) {
-                user.login = pUsuario.login.toLowerCase();
+            if (BasicFunctions.isNotEmpty(pUser.login)) {
+                user.login = pUser.login.toLowerCase();
             }
-            if (BasicFunctions.isNotEmpty(pUsuario.password)) {
-                user.password = BcryptUtil.bcryptHash(pUsuario.password);
+            if (BasicFunctions.isNotEmpty(pUser.password)) {
+                user.password = BcryptUtil.bcryptHash(pUser.password);
             }
             if (BasicFunctions.isNotEmpty(roles)) {
                 user.role = new ArrayList<>();
                 user.role.addAll(roles);
             }
-            if (BasicFunctions.isNotEmpty(pUsuario.person)) {
-                user.person = pUsuario.person;
+            if (BasicFunctions.isNotEmpty(pUser.person)) {
+                user.person = pUser.person;
                 user.professionalName = user.person.name;
             }
-            if (BasicFunctions.isNotEmpty(pUsuario.organizationDefault)) {
-                user.organizationDefault = pUsuario.organizationDefault;
+            if (BasicFunctions.isNotEmpty(pUser.organizationDefault)) {
+                user.organizationDefault = pUser.organizationDefault;
             }
             if (BasicFunctions.isNotEmpty(organizations)) {
                 user.organizations = new ArrayList<>();
@@ -114,14 +114,14 @@ public class UserController {
                 user.serviceTypes = new ArrayList<>();
                 user.serviceTypes.addAll(serviceTypes);
             }
-            if (BasicFunctions.isNotEmpty(pUsuario.bot)) {
-                user.bot = pUsuario.bot;
+            if (BasicFunctions.isNotEmpty(pUser.bot)) {
+                user.bot = pUser.bot;
             } else {
                 user.bot = Boolean.FALSE;
             }
             if (!user.bot) {
                 roleDefault = new Role();
-                roleDefault.setUsuario();
+                roleDefault.setUser();
                 user.role.add(roleDefault);
             } else {
                 roleDefault = new Role();
@@ -153,7 +153,7 @@ public class UserController {
         }
     }
 
-    public Response updateUser(@NotNull User pUsuario) {
+    public Response updateUser(@NotNull User pUser) {
 
         userAuth = Context.getContextUser(context);
 
@@ -173,66 +173,66 @@ public class UserController {
         List<Long> tiposAgendamentosId = new ArrayList<>();
         Role roleDefault;
 
-        if (pUsuario.hasRole() && !pUsuario.bot()) {
-            pUsuario.role.forEach(role -> privilegioId.add(role.id));
+        if (pUser.hasRole() && !pUser.bot()) {
+            pUser.role.forEach(role -> privilegioId.add(role.id));
             roles = Role.list("id in ?1", privilegioId);
             roles.removeIf(x -> x.id.equals(User.BOT));
         }
 
-        if (BasicFunctions.isNotEmpty(pUsuario.organizations)) {
-            pUsuario.organizations.forEach(organization -> organizationsId.add(organization.id));
+        if (BasicFunctions.isNotEmpty(pUser.organizations)) {
+            pUser.organizations.forEach(organization -> organizationsId.add(organization.id));
             organizations = Organization.list("id in ?1", organizationsId);
         }
 
-        if (BasicFunctions.isNotEmpty(pUsuario.serviceTypes)) {
-            pUsuario.serviceTypes.forEach(serviceType -> tiposAgendamentosId.add(serviceType.id));
+        if (BasicFunctions.isNotEmpty(pUser.serviceTypes)) {
+            pUser.serviceTypes.forEach(serviceType -> tiposAgendamentosId.add(serviceType.id));
             serviceTypes = ServiceType.list("id in ?1", tiposAgendamentosId);
         }
 
         try {
 
-            if (BasicFunctions.isNotEmpty(pUsuario) && pUsuario.isValid()) {
-                user = User.findById(pUsuario.id);
+            if (BasicFunctions.isNotEmpty(pUser) && pUser.isValid()) {
+                user = User.findById(pUser.id);
             }
 
-            if (BasicFunctions.isEmpty(pUsuario.login) && BasicFunctions.isEmpty(pUsuario.password)
-                    && BasicFunctions.isEmpty(pUsuario.role) && BasicFunctions.isEmpty(pUsuario.organizations)
-                    && BasicFunctions.isEmpty(pUsuario.person)
+            if (BasicFunctions.isEmpty(pUser.login) && BasicFunctions.isEmpty(pUser.password)
+                    && BasicFunctions.isEmpty(pUser.role) && BasicFunctions.isEmpty(pUser.organizations)
+                    && BasicFunctions.isEmpty(pUser.person)
                     && BasicFunctions.isEmpty(organizations) && BasicFunctions.isEmpty(serviceTypes)) {
                 throw new BadRequestException("Enter data for update the User.");
 
             } else {
 
-                if (BasicFunctions.isNotEmpty(pUsuario.login)) {
-                    if (!user.login.equals(pUsuario.login.toLowerCase())) {
-                        user.login = pUsuario.login.toLowerCase();
+                if (BasicFunctions.isNotEmpty(pUser.login)) {
+                    if (!user.login.equals(pUser.login.toLowerCase())) {
+                        user.login = pUser.login.toLowerCase();
                     }
                 }
-                if (BasicFunctions.isNotEmpty(pUsuario.password)) {
+                if (BasicFunctions.isNotEmpty(pUser.password)) {
                     if (BasicFunctions.isNotEmpty(user.password)
-                            && !user.password.equals(BcryptUtil.bcryptHash(pUsuario.password))) {
-                        user.password = BcryptUtil.bcryptHash(pUsuario.password);
+                            && !user.password.equals(BcryptUtil.bcryptHash(pUser.password))) {
+                        user.password = BcryptUtil.bcryptHash(pUser.password);
                     }
                 }
-                if (pUsuario.hasRole()) {
-                    if (!Objects.equals(user.role, pUsuario.role)) {
-                        user.role = pUsuario.role;
+                if (pUser.hasRole()) {
+                    if (!Objects.equals(user.role, pUser.role)) {
+                        user.role = pUser.role;
                     }
                 }
-                if (BasicFunctions.isNotEmpty(pUsuario.person)) {
-                    if (!Objects.equals(user.person, pUsuario.person)) {
-                        user.person = pUsuario.person;
+                if (BasicFunctions.isNotEmpty(pUser.person)) {
+                    if (!Objects.equals(user.person, pUser.person)) {
+                        user.person = pUser.person;
                         user.professionalName = user.person.name;
                     }
                 }
-                if (BasicFunctions.isNotEmpty(pUsuario.bot)) {
-                    if (BasicFunctions.isNotEmpty(user.bot) && !Objects.equals(user.bot, pUsuario.bot)) {
-                        user.bot = pUsuario.bot;
+                if (BasicFunctions.isNotEmpty(pUser.bot)) {
+                    if (BasicFunctions.isNotEmpty(user.bot) && !Objects.equals(user.bot, pUser.bot)) {
+                        user.bot = pUser.bot;
                     }
                 }
-                if (BasicFunctions.isNotEmpty(pUsuario.organizationDefault)) {
-                    if (!Objects.equals(user.organizationDefault, pUsuario.organizationDefault)) {
-                        user.organizationDefault = pUsuario.organizationDefault;
+                if (BasicFunctions.isNotEmpty(pUser.organizationDefault)) {
+                    if (!Objects.equals(user.organizationDefault, pUser.organizationDefault)) {
+                        user.organizationDefault = pUser.organizationDefault;
                     }
                 }
                 if (BasicFunctions.isNotEmpty(organizations)) {
@@ -247,14 +247,14 @@ public class UserController {
                     user.serviceTypes = new ArrayList<>();
                     user.serviceTypes.addAll(serviceTypes);
                 }
-                if (BasicFunctions.isNotEmpty(pUsuario.bot)) {
-                    user.bot = pUsuario.bot;
+                if (BasicFunctions.isNotEmpty(pUser.bot)) {
+                    user.bot = pUser.bot;
                 } else {
                     user.bot = Boolean.FALSE;
                 }
                 if (!user.bot) {
                     roleDefault = new Role();
-                    roleDefault.setUsuario();
+                    roleDefault.setUser();
                     user.role.add(roleDefault);
                 } else {
                     roleDefault = new Role();
@@ -279,7 +279,7 @@ public class UserController {
         }
     }
 
-    public Response deleteUser(@NotNull List<Long> pListIdUsuario) {
+    public Response deleteUser(@NotNull List<Long> pListIdUser) {
 
         List<User> users;
         List<User> usersAux = new ArrayList<>();
@@ -287,7 +287,7 @@ public class UserController {
         responses.messages = new ArrayList<>();
 
         userAuth = Context.getContextUser(context);
-        users = User.list("id in ?1 and active = true", pListIdUsuario);
+        users = User.list("id in ?1 and active = true", pListIdUser);
         int count = users.size();
 
         try {
@@ -329,7 +329,7 @@ public class UserController {
         }
     }
 
-    public Response reactivateUser(@NotNull List<Long> pListIdUsuario) {
+    public Response reactivateUser(@NotNull List<Long> pListIdUser) {
 
         List<User> users;
         List<User> usersAux = new ArrayList<>();
@@ -337,7 +337,7 @@ public class UserController {
         responses.messages = new ArrayList<>();
 
         userAuth = Context.getContextUser(context);
-        users = User.list("id in ?1 and active = false", pListIdUsuario);
+        users = User.list("id in ?1 and active = false", pListIdUser);
         int count = users.size();
 
         if (users.isEmpty()) {

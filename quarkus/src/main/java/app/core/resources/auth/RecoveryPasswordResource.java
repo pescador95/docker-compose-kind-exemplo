@@ -40,9 +40,9 @@ public class RecoveryPasswordResource {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({"user"})
-    public Response update(User pUsuario, @Context @NotNull SecurityContext context,
-                           @QueryParam("password") String password) {
+    @RolesAllowed({ "user" })
+    public Response update(User pUser, @Context @NotNull SecurityContext context,
+            @QueryParam("password") String password) {
         try {
 
             return controller.updatePassword(password);

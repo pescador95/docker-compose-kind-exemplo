@@ -1,4 +1,4 @@
-package app.core.auth;
+package app.core.services.auth;
 
 import app.core.utils.AuthToken;
 import app.quarkus.model.person.User;
