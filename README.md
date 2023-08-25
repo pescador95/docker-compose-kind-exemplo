@@ -1,4 +1,4 @@
-# Docker Compose examplo
+# Docker Compose exemplo
 
 Simple docker compose example.
 
