@@ -34,7 +34,7 @@ public class UserResources {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response getById(@PathParam("id") Long pId) {
         User user = User.findById(pId);
         return Response.ok(user).status(200).build();
@@ -44,7 +44,7 @@ public class UserResources {
     @Path("/count")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response count(@QueryParam("active") @DefaultValue("true") Boolean active) {
         query = "active = " + active;
         long count = User.count(query);
@@ -55,7 +55,7 @@ public class UserResources {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response list(
             @QueryParam("id") Long id,
             @QueryParam("login") String login,
@@ -87,13 +87,13 @@ public class UserResources {
                 .stream()
                 .filter(x -> (BasicFunctions.isEmpty(organizationId)
                         || new HashSet<>(x.organizations.stream().map(org -> org.id).collect(Collectors.toList()))
-                                .containsAll(organizationId))
+                        .containsAll(organizationId))
                         && (BasicFunctions.isEmpty(serviceType) || new HashSet<>(
-                                x.serviceTypes.stream().map(t -> t.id).collect(Collectors.toList()))
-                                .containsAll(serviceType))
+                        x.serviceTypes.stream().map(t -> t.id).collect(Collectors.toList()))
+                        .containsAll(serviceType))
                         && (BasicFunctions.isEmpty(roleId) || new HashSet<>(
-                                x.role.stream().map(role -> role.id).collect(Collectors.toList()))
-                                .containsAll(roleId)))
+                        x.role.stream().map(role -> role.id).collect(Collectors.toList()))
+                        .containsAll(roleId)))
                 .collect(Collectors.toList());
 
         return Response.ok(usersFiltered).status(200).build();
@@ -103,7 +103,7 @@ public class UserResources {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response add(User pUser, @javax.ws.rs.core.Context @NotNull SecurityContext context) {
         try {
 
@@ -120,7 +120,7 @@ public class UserResources {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response update(User pUser, @javax.ws.rs.core.Context @NotNull SecurityContext context) {
         try {
 
@@ -137,7 +137,7 @@ public class UserResources {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response deleteList(List<Long> pListIdUser, @javax.ws.rs.core.Context @NotNull SecurityContext context) {
         try {
 
@@ -158,9 +158,9 @@ public class UserResources {
     @Path("/reactivate")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response reactivateList(List<Long> pListIdUser,
-            @javax.ws.rs.core.Context @NotNull SecurityContext context) {
+                                   @javax.ws.rs.core.Context @NotNull SecurityContext context) {
         try {
 
             return controller.reactivateUser(pListIdUser);

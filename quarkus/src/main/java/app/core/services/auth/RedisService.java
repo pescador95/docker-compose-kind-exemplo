@@ -1,11 +1,10 @@
-
 package app.core.services.auth;
 
-import app.quarkus.model.person.User;
 import app.core.controller.contract.ContractController;
 import app.core.model.DTO.Responses;
 import app.core.model.contract.TypeContract;
 import app.core.utils.BasicFunctions;
+import app.quarkus.model.person.User;
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.redis.client.RedisAPI;
 import io.vertx.mutiny.redis.client.Response;
@@ -93,7 +92,7 @@ public class RedisService {
     }
 
     public void logSessoesAtivas(TypeContract typeContract, User user,
-            Boolean firstTime, Integer count) {
+                                 Boolean firstTime, Integer count) {
 
         String pattern = getSessionDefaultPattern(user);
 
@@ -148,7 +147,7 @@ public class RedisService {
     }
 
     public void setex(User user, String expiration, String accessToken,
-            TypeContract typeContract) {
+                      TypeContract typeContract) {
 
         setex(makeSessionKeyPattern(user), expiration, accessToken,
                 typeContract);

@@ -34,7 +34,7 @@ public class PersonResources {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user", "bot" })
+    @RolesAllowed({"user", "bot"})
     public Response getById(@PathParam("id") Long pId) {
         person = Person.findById(pId);
         return Response.ok(person).status(200).build();
@@ -44,10 +44,10 @@ public class PersonResources {
     @Path("/count")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user", "bot" })
+    @RolesAllowed({"user", "bot"})
 
     public Response count(@QueryParam("active") @DefaultValue("true") Boolean active,
-            @Context @NotNull SecurityContext context) {
+                          @Context @NotNull SecurityContext context) {
 
         query = "active = " + active;
         long count = Person.count(query);
@@ -58,7 +58,7 @@ public class PersonResources {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response list(
             @QueryParam("id") Long id,
             @QueryParam("name") String name,
@@ -93,11 +93,11 @@ public class PersonResources {
     @Consumes("application/json")
     @PermitAll
     public Response listByCPF(@QueryParam("sort") @DefaultValue("desc") @NotNull String sortQuery,
-            @QueryParam("page") @DefaultValue("0") int pageIndex,
-            @QueryParam("size") @DefaultValue("20") int pageSize,
-            @QueryParam("active") @DefaultValue("true") Boolean active,
-            @QueryParam("cpf") String cpf,
-            @QueryParam("strgOrder") @DefaultValue("id") String strgOrder, @Context @NotNull SecurityContext context) {
+                              @QueryParam("page") @DefaultValue("0") int pageIndex,
+                              @QueryParam("size") @DefaultValue("20") int pageSize,
+                              @QueryParam("active") @DefaultValue("true") Boolean active,
+                              @QueryParam("cpf") String cpf,
+                              @QueryParam("strgOrder") @DefaultValue("id") String strgOrder, @Context @NotNull SecurityContext context) {
         query = "active = " + active + " and cpf = '" + cpf + "'";
 
         PanacheQuery<Person> person;
@@ -115,11 +115,11 @@ public class PersonResources {
     @Consumes("application/json")
     @PermitAll
     public Response listByPhone(@QueryParam("sort") @DefaultValue("desc") @NotNull String sortQuery,
-            @QueryParam("page") @DefaultValue("0") int pageIndex,
-            @QueryParam("size") @DefaultValue("20") int pageSize,
-            @QueryParam("active") @DefaultValue("true") Boolean active,
-            @QueryParam("telephone") String telephone,
-            @QueryParam("strgOrder") @DefaultValue("id") String strgOrder, @Context @NotNull SecurityContext context) {
+                                @QueryParam("page") @DefaultValue("0") int pageIndex,
+                                @QueryParam("size") @DefaultValue("20") int pageSize,
+                                @QueryParam("active") @DefaultValue("true") Boolean active,
+                                @QueryParam("telephone") String telephone,
+                                @QueryParam("strgOrder") @DefaultValue("id") String strgOrder, @Context @NotNull SecurityContext context) {
         query = "active = " + active + " and telephone = '" + telephone + "' or cellphone = '" + telephone + "'";
 
         PanacheQuery<Person> person;
@@ -137,11 +137,11 @@ public class PersonResources {
     @Consumes("application/json")
     @PermitAll
     public Response listByIdent(@QueryParam("sort") @DefaultValue("desc") @NotNull String sortQuery,
-            @QueryParam("page") @DefaultValue("0") int pageIndex,
-            @QueryParam("size") @DefaultValue("20") int pageSize,
-            @QueryParam("active") @DefaultValue("true") Boolean active,
-            @QueryParam("ident") String ident,
-            @QueryParam("strgOrder") @DefaultValue("id") String strgOrder, @Context @NotNull SecurityContext context) {
+                                @QueryParam("page") @DefaultValue("0") int pageIndex,
+                                @QueryParam("size") @DefaultValue("20") int pageSize,
+                                @QueryParam("active") @DefaultValue("true") Boolean active,
+                                @QueryParam("ident") String ident,
+                                @QueryParam("strgOrder") @DefaultValue("id") String strgOrder, @Context @NotNull SecurityContext context) {
         query = "active = " + active + " and telephone = '" + ident + "' or cellphone = '" + ident + "'" + " or cpf = '"
                 + ident + "'";
 
@@ -158,7 +158,7 @@ public class PersonResources {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response add(Person pPerson, @Context @NotNull SecurityContext context) {
         try {
             return controller.addPerson(pPerson);
@@ -190,7 +190,7 @@ public class PersonResources {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response update(Person pPerson, @Context @NotNull SecurityContext context) {
         try {
 
@@ -207,7 +207,7 @@ public class PersonResources {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response deleteList(List<Long> pListPerson, @Context @NotNull SecurityContext context) {
         try {
 
@@ -228,7 +228,7 @@ public class PersonResources {
     @Path("/reactivate")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response reactivateList(List<Long> pListPerson, @Context @NotNull SecurityContext context) {
         try {
 

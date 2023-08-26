@@ -16,11 +16,11 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "appointments", indexes = {
-        @Index(name = "iappointmentsak1", columnList = "appointmentDate, appointmentTime, personId, professionalId, organizationId, bookingStatusId, active") })
-@JsonIgnoreProperties({ "updatedBy", "active", "updatedAt", "deletedAt", "appointmentsOld" })
+        @Index(name = "iappointmentsak1", columnList = "appointmentDate, appointmentTime, personId, professionalId, organizationId, bookingStatusId, active")})
+@JsonIgnoreProperties({"updatedBy", "active", "updatedAt", "deletedAt", "appointmentsOld"})
 @NamedQueries({
         @NamedQuery(name = "qloadListAppointmentsByUserDataAgendaOrganization", query = "SELECT a FROM Appointments a JOIN FETCH a.organizationAppointments o JOIN FETCH a.professionalAppointments u WHERE o.id = :organizationId AND u.id = :professionalId AND a.appointmentDate = :appointmentDate AND a.active = true AND o.active = true AND u.active = true"),
-        @NamedQuery(name = "qloadListAgendamentosByDataAgendaOrganization", query = "SELECT a FROM Appointments a JOIN FETCH a.organizationAppointments o JOIN FETCH a.professionalAppointments p WHERE o.id = :organizationId AND a.appointmentDate = :appointmentDate AND a.active = true AND o.active = true AND p.active = true") })
+        @NamedQuery(name = "qloadListAgendamentosByDataAgendaOrganization", query = "SELECT a FROM Appointments a JOIN FETCH a.organizationAppointments o JOIN FETCH a.professionalAppointments p WHERE o.id = :organizationId AND a.appointmentDate = :appointmentDate AND a.active = true AND o.active = true AND p.active = true")})
 public class Appointments extends PanacheEntityBase {
 
     @Column()

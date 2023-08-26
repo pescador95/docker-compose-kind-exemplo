@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "person", indexes = {
-        @Index(name = "ipersonak1", columnList = "name, telephone, cellphone, birthday, document, active") })
-@JsonIgnoreProperties({ "updatedBy", "active", "updatedAt", "deletedAt" })
+        @Index(name = "ipersonak1", columnList = "name, telephone, cellphone, birthday, document, active")})
+@JsonIgnoreProperties({"updatedBy", "active", "updatedAt", "deletedAt"})
 public class Person extends PanacheEntityBase {
 
     @Column()

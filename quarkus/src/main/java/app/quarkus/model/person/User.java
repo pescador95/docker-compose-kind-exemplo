@@ -83,6 +83,7 @@ public class User extends PanacheEntityBase {
             @JoinColumn(name = "serviceTypeId")})
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public List<ServiceType> serviceTypes = new ArrayList<>();
+
     public User() {
 
     }

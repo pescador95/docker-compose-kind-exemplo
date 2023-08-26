@@ -8,8 +8,8 @@ import static app.core.utils.StringBuilder.makeQueryString;
 public class PersonalActivityFilters {
 
     public static String makePersonalActivityQueryStringByFilters(Long id, String queixaPrincipal, String medicamentos,
-            String diagnosticoClinico, String comorbidades, String ocupacao, String responsibleContato,
-            String personName) {
+                                                                  String diagnosticoClinico, String comorbidades, String ocupacao, String responsibleContato,
+                                                                  String personName) {
         String queryString = "";
 
         if (BasicFunctions.isValid(id)) {

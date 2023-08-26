@@ -1,11 +1,11 @@
 package app.core.controller.auth;
 
-import app.quarkus.model.organization.Organization;
-import app.quarkus.model.person.User;
 import app.core.model.DTO.Responses;
 import app.core.model.contract.Contract;
 import app.core.model.contract.TypeContract;
 import app.core.utils.BasicFunctions;
+import app.quarkus.model.organization.Organization;
+import app.quarkus.model.person.User;
 import jakarta.ws.rs.core.Context;
 import org.jetbrains.annotations.NotNull;
 

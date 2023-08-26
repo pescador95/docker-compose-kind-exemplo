@@ -317,14 +317,14 @@ public class AppointmentsController {
     }
 
     public List<Appointments> makeFreeAppointments(List<Appointments> plistaAppointmentsFree,
-            List<Appointments> pListaAppointmentsPersisted) {
+                                                   List<Appointments> pListaAppointmentsPersisted) {
 
         return plistaAppointmentsFree.stream()
                 .filter(x -> pListaAppointmentsPersisted.stream()
                         .noneMatch(y -> y.professionalAppointments.id.equals(x.professionalAppointments.id)
                                 && (y.appointmentDate.equals(x.appointmentDate)
-                                        && y.appointmentTime.equals(x.appointmentTime)
-                                        && y.bookingStatus.id.equals(BookingStatus.SCHEDULED))))
+                                && y.appointmentTime.equals(x.appointmentTime)
+                                && y.bookingStatus.id.equals(BookingStatus.SCHEDULED))))
                 .collect(Collectors.toList());
     }
 }

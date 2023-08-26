@@ -33,7 +33,7 @@ public class PersonalActivityResources {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response getById(@PathParam("id") Long pId) {
         personalActivity = PersonalActivity.findById(pId);
         return Response.ok(personalActivity).status(200).build();
@@ -43,7 +43,7 @@ public class PersonalActivityResources {
     @Path("/count")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response count(@QueryParam("active") @DefaultValue("true") Boolean active) {
         query = "active = " + active;
         long count = PersonalActivity.count(query);
@@ -54,7 +54,7 @@ public class PersonalActivityResources {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response list(
             @QueryParam("id") Long id,
             @QueryParam("queixaPrincipal") String queixaPrincipal,
@@ -85,7 +85,7 @@ public class PersonalActivityResources {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response add(PersonalActivity pPersonalActivity, @Context @NotNull SecurityContext context) {
         try {
 
@@ -102,7 +102,7 @@ public class PersonalActivityResources {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response update(PersonalActivity pPersonalActivity, @Context @NotNull SecurityContext context) {
         try {
 
@@ -119,7 +119,7 @@ public class PersonalActivityResources {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response deleteList(List<Long> pListIdPersonalActivity, @Context @NotNull SecurityContext context) {
         try {
 
@@ -140,7 +140,7 @@ public class PersonalActivityResources {
     @Path("/reactivate")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    @RolesAllowed({ "user" })
+    @RolesAllowed({"user"})
     public Response reactivateList(List<Long> pListIdCliente, @Context @NotNull SecurityContext context) {
         try {
 

@@ -107,9 +107,9 @@ public class PersonalActivityController {
 
             if (BasicFunctions.isEmpty(pTask)
                     || !pTask.isValid() && !pTask.personalActivity.isValid()
-                            && BasicFunctions.isEmpty(pTask.avaliation)
-                            && BasicFunctions.isInvalid(pTask.taskDate)
-                            && BasicFunctions.isEmpty(pTask.summary)) {
+                    && BasicFunctions.isEmpty(pTask.avaliation)
+                    && BasicFunctions.isInvalid(pTask.taskDate)
+                    && BasicFunctions.isEmpty(pTask.summary)) {
                 throw new BadRequestException("Enter data for update the Tasks.");
             } else {
                 if (BasicFunctions.isNotEmpty(pTask.personalActivity)) {

@@ -1,8 +1,8 @@
 package app.core.model.contract;
 
+import app.core.utils.BasicFunctions;
 import app.quarkus.model.organization.Organization;
 import app.quarkus.model.person.User;
-import app.core.utils.BasicFunctions;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "contract")
-@JsonIgnoreProperties({ "updatedBy", "active", "updatedAt", "deletedAt" })
+@JsonIgnoreProperties({"updatedBy", "active", "updatedAt", "deletedAt"})
 @RegisterForReflection
 public class Contract extends PanacheEntityBase {
 

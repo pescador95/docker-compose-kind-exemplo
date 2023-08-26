@@ -28,19 +28,14 @@ import java.util.List;
 @ApplicationScoped
 public class AuthController {
 
+    private final List<String> rolesString = new ArrayList<>();
     @Inject
     AuthToken token;
-
     @Inject
     JWTParser parser;
-
     @Inject
     RedisService redisClient;
-
     List<Role> roles;
-
-    private final List<String> rolesString = new ArrayList<>();
-
     private Responses responses = new Responses();
 
     public Response login(Auth data) {
