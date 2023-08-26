@@ -47,7 +47,7 @@ public class AppointmentsController {
         responses.messages = new ArrayList<>();
         organization = new Organization();
         userAuth = Context.getContextUser(context);
-        Appointments = PanacheEntityBase.find("personAgendamento = ?1 and appointmentDate = ?2 and active = true",
+        Appointments = PanacheEntityBase.find("personAppointments = ?1 and appointmentDate = ?2 and active = true",
                 pAppointments.personAppointments, pAppointments.appointmentDate).firstResult();
 
         if (BasicFunctions.isNotEmpty(pAppointments.professionalAppointments)
@@ -75,7 +75,7 @@ public class AppointmentsController {
             if (BasicFunctions.isValid(pAppointments.appointmentTime)) {
                 Appointments.appointmentTime = pAppointments.appointmentTime;
             } else {
-                responses.messages.add("Please, isner the correct Time!");
+                responses.messages.add("Please, insert the correct Time!");
             }
             if (BasicFunctions.isNotEmpty(profissional)) {
                 Appointments.professionalAppointments = profissional;

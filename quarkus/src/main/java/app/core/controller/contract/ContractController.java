@@ -73,7 +73,7 @@ public class ContractController {
             } else {
                 responses.status = 400;
                 responses.data = contract;
-                responses.messages.add("Informe o número máximo de sessões!");
+                responses.messages.add("set the max number of sessions!");
                 return Response.ok(responses).status(Response.Status.BAD_REQUEST).build();
             }
             if (BasicFunctions.isNotEmpty(pContract.considerations)) {
@@ -96,7 +96,7 @@ public class ContractController {
 
                 responses.status = 201;
                 responses.data = contract;
-                responses.messages.add("Contract cadastrado com sucesso!");
+                responses.messages.add("Contract register with sucessful!");
 
             } else {
                 return Response.ok(responses).status(Response.Status.BAD_REQUEST).build();
@@ -106,7 +106,7 @@ public class ContractController {
 
             responses.status = 400;
             responses.data = contract;
-            responses.messages.add("Contract já cadastrado!");
+            responses.messages.add("Contract already registered!");
             return Response.ok(responses).status(Response.Status.BAD_REQUEST).build();
         }
     }
@@ -125,7 +125,7 @@ public class ContractController {
             }
             if (!pContract.isValid() && BasicFunctions.isEmpty(pContract.responsibleContract)
                     && BasicFunctions.isEmpty(pContract.organizationContract)) {
-                throw new BadRequestException("Informe os dados para atualizar o cadastro do Contract.");
+                throw new BadRequestException("Set the infos to update the Contract.");
             } else {
                 if (BasicFunctions.isNotEmpty(pContract.responsibleContract)) {
                     contract.responsibleContract = pContract.responsibleContract;
@@ -160,7 +160,7 @@ public class ContractController {
 
             responses.status = 400;
             responses.data = contract;
-            responses.messages.add("Não foi possível atualizar o cadastro da Contract.");
+            responses.messages.add("Cannot update the Contract.");
             return Response.ok(responses).status(Response.Status.BAD_REQUEST).build();
         }
     }
@@ -182,7 +182,7 @@ public class ContractController {
             if (contracts.isEmpty()) {
 
                 responses.status = 400;
-                responses.messages.add("Contracts não localizados ou já excluídos.");
+                responses.messages.add("Contracts not found or already excluded.");
                 return Response.ok(responses).status(Response.Status.BAD_REQUEST).build();
             }
 
@@ -199,10 +199,10 @@ public class ContractController {
             responses.status = 200;
             if (count <= 1) {
                 responses.data = contract;
-                responses.messages.add("Contract excluído com sucesso!");
+                responses.messages.add("Contract excluded with successfuly!");
             } else {
                 responses.datas = Collections.singletonList(contractsAux);
-                responses.messages.add(count + " Contracts excluídos com sucesso!");
+                responses.messages.add(count + " Contracts excluded with successfuly!");
             }
             return Response.ok(responses).status(Response.Status.ACCEPTED).build();
         } catch (Exception e) {
@@ -210,10 +210,10 @@ public class ContractController {
             responses.status = 400;
             if (count <= 1) {
                 responses.data = contract;
-                responses.messages.add("Contract não localizado ou já excluído.");
+                responses.messages.add("Contract not found or already excluded.");
             } else {
                 responses.datas = Collections.singletonList(contracts);
-                responses.messages.add("Contracts não localizados ou já excluídos.");
+                responses.messages.add("Contracts not found or already excluded.");
             }
             return Response.ok(responses).status(Response.Status.BAD_REQUEST).build();
         }
