@@ -1,5 +1,7 @@
 #!/bin/bash
 
+git update-index --assume-unchanged run.sh
+
 current_path=$(dirname "$0")
 
 cd "$current_path"
@@ -47,3 +49,4 @@ docker ps
 echo "##########################################################"
 echo "docker-compose Executado com sucesso!"
 read -p "Pressione Enter para sair..."
+git update-index --no-assume-unchanged run.sh
