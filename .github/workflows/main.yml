@@ -61,6 +61,7 @@ jobs:
       SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
       SSH_SERVER: ${{ secrets.SSH_SERVER }}
       SSH_SERVER_KEY: ${{ secrets.SSH_SERVER_KEY }}
+      REPOSITORY_PATH: ${{ secrets.REPOSITORY_PATH }}
 
     steps:
       - name: Add SSH key to known_hosts
@@ -76,7 +77,11 @@ jobs:
       - name: Checkout Main and Pull
         run: |
               ssh $SSH_USERNAME@$SSH_SERVER "sudo su -c 'cd ~/${REPOSITORY_PATH} && git checkout main && git pull'"
-  
-      - name:  Run Commands on run.sh to Deploy
+
+      - name: Connect to Oracle Server and Run Commands to Deploy
         run: |
-              ssh $SSH_USERNAME@$SSH_SERVER "sudo su -c 'cd ~/${REPOSITORY_PATH} && ./run.sh'"
+              ssh $SSH_USERNAME@$SSH_SERVER "sudo su -c 'cd ~/${REPOSITORY_PATH} && chmod +x ~/${REPOSITORY_PATH}/run.sh && ./run.sh'"
+
+      - name: Reset run.sh changes
+        run: |
+              ssh $SSH_USERNAME@$SSH_SERVER "sudo su -c 'cd ~/${REPOSITORY_PATH} && git checkout -- run.sh'"
