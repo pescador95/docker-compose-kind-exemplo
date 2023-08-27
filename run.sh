@@ -1,7 +1,5 @@
 #!/bin/bash
 
-git update-index --assume-unchanged run.sh
-
 current_path=$(dirname "$0")
 
 cd "$current_path"
@@ -23,9 +21,6 @@ else
 fi
 
 current_branch=$(git branch --show-current)
-echo "Recebendo atualizações da main..."
-git switch main
-git pull
 echo "Executando o script na branch: $current_branch"
 echo "Build and Run - Projeto: Docker Compose Exemplo... ##############"
 echo "Executando docker-compose down..."
@@ -49,4 +44,3 @@ docker ps
 echo "##########################################################"
 echo "docker-compose Executado com sucesso!"
 read -p "Pressione Enter para sair..."
-git update-index --no-assume-unchanged run.sh

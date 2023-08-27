@@ -1,4 +1,4 @@
-name: Building tests and deploy
+name: Building tests and deploy at Cloud Server
 
 on:
   push:
@@ -73,6 +73,10 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_SERVER_KEY }}
 
-      - name: Connect to Oracle Server and Run Commands to Deploy
+      - name: Checkout Main and Pull
         run: |
-          ssh $SSH_USERNAME@$SSH_SERVER "sudo su -c 'cd ~/${REPOSITORY_PATH} && chmod +x ~/${REPOSITORY_PATH}/run.sh && ./run.sh'"
+              ssh $SSH_USERNAME@$SSH_SERVER "sudo su -c 'cd ~/${REPOSITORY_PATH} && git checkout main && git pull'"
+  
+      - name:  Run Commands on run.sh to Deploy
+        run: |
+              ssh $SSH_USERNAME@$SSH_SERVER "sudo su -c 'cd ~/${REPOSITORY_PATH} && ./run.sh'"
