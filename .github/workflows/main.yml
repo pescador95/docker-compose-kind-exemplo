@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      JDK_ARM64: "openjdk:20.0.2-jdk11-arm64-alpine"
+      JDK_ARM64: "arm64v8/openjdk:17-jdk-slim"
       
     steps:
       - name: Checkout code
