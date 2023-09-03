@@ -43,8 +43,9 @@ services:
     image: compose-example:quarkus
     build:
       context: ./
-      dockerfile: Dockerfile.quarkus.arm64 # isso faz com que o docker-compose utilize o Dockerfile.quarkus.x86x64 para criar a imagem do backend
+      dockerfile: Dockerfile.quarkus # isso faz com que o docker-compose utilize o Dockerfile.quarkus.x86x64 para criar a imagem do backend
     environment:
+      IMAGE: ${IMAGE}
       DATABASE_URL: jdbc:postgresql://db:5433/quarkusapp
       DATABASE_USER: quarkusapp
       DATABASE_PASSWORD: quarkusapp

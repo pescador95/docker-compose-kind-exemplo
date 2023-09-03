@@ -13,12 +13,14 @@ fi
 arch=$(uname -m)
 
 if [ "$arch" = "x86_64" ]; then
-    compose_file="docker-compose-x86x64.yml"
+    jdk="amazoncorretto:20.0.2"
     elif [ "$arch" = "aarch64" ]; then
-    compose_file="docker-compose.arm64.yml"
+    jdk="amazoncorretto:20.0.2-arm64"
 else
     echo "Arquitetura não suportada: $arch"
 fi
+
+export IMAGE=$jdk
 
 current_branch=$(git branch --show-current)
 echo "Executando o script na branch: $current_branch"
@@ -35,9 +37,9 @@ docker image rm compose-example:node
 
 echo "Arquitetura detectada: $arch"
 echo "Criando imagens e containers..."
-docker-compose -p compose-example -f "$compose_file" build
+docker-compose -p compose-example -f docker-compose.yml build
 echo "Executando docker-compose up..."
-docker-compose -p compose-example -f "$compose_file" up -d
+docker-compose -p compose-example -f docker-compose.yml up -d
 
 echo "Containers em execução: ##################################"
 docker ps

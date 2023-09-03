@@ -1,3 +1,5 @@
+ARG IMAGE
+
 # Build Stage
 FROM maven:latest as build
 WORKDIR /app
@@ -9,7 +11,7 @@ COPY /quarkus/src /app/src
 RUN mvn clean package -DskipTests
 
 # Final Stage
-FROM arm64v8/openjdk:20
+FROM ${IMAGE}
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 
