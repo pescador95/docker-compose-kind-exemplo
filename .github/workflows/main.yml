@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Quarkus Backend Container architecture x86-x64
-        run: docker-compose -f docker-compose.yml build quarkus
+        run: docker-compose -f docker-compose-x86x64.yml build quarkus
 
   quarkus-arm64:
     runs-on: ubuntu-latest
@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Quarkus Backend Container architecture arm64
-        run: docker-compose -f docker-compose.arm64.yml build quarkus
+        run: docker-compose -f docker-compose.yml build quarkus
 
   node:
     runs-on: ubuntu-latest
