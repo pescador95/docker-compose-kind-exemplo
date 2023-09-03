@@ -15,7 +15,7 @@ arch=$(uname -m)
 if [ "$arch" = "x86_64" ]; then
     jdk="amazoncorretto:20.0.2"
     elif [ "$arch" = "aarch64" ]; then
-    jdk="amazonlinux:2, 2.0.20230822.0"
+    jdk="amazonlinux:2"
 else
     echo "Arquitetura não suportada: $arch"
 fi

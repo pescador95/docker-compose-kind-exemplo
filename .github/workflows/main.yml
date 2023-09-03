@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      JDK_ARM64: "amazonlinux:2, 2.0.20230822.0"
+      JDK_ARM64: "amazonlinux:2"
       
     steps:
       - name: Checkout code
