@@ -5,13 +5,13 @@ FROM node:18
 WORKDIR /app
 
 # Copia os arquivos do projeto para o diretório de trabalho
-COPY /node/ package*.json ./
+COPY / package*.json ./
 
 # Instala as dependências
 RUN npm install
 
 # Copia o restante dos arquivos do projeto para o diretório de trabalho
-COPY /node/ .
+COPY / .
 
 # Define as variáveis de ambiente
 ENV QUARKUS_PORT=${QUARKUS_PORT}

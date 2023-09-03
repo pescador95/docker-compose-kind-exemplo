@@ -4,10 +4,10 @@ ARG JDK
 FROM maven:latest as build
 WORKDIR /app
 # Resolve dependencies
-COPY /quarkus/pom.xml /app
+COPY /pom.xml /app
 RUN mvn -B dependency:resolve dependency:resolve-plugins
 # Compile and Build App
-COPY /quarkus/src /app/src
+COPY /src /app/src
 RUN mvn clean package -DskipTests
 
 # Final Stage

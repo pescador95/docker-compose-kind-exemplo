@@ -9,8 +9,8 @@ services:
       - ./db/data:/var/lib/postgresql/data
       - ./sql:/docker-entrypoint-initdb.d
     build:
-      context: ./
-      dockerfile: Dockerfile.postgres # isso faz com que o docker-compose utilize o Dockerfile.postgres para criar a imagem do banco de dados
+      context: ./postgres
+      dockerfile: Dockerfile # isso faz com que o docker-compose utilize o Dockerfile.postgres para criar a imagem do banco de dados
     environment:
       DATABASE_USER: quarkusapp
       DATABASE_PASSWORD: quarkusapp
@@ -26,8 +26,8 @@ services:
     container_name: tcc-redis
     image: compose-example:redis
     build:
-      context: ./
-      dockerfile: Dockerfile.redis
+      context: ./redis
+      dockerfile: Dockerfile
     environment:
       REDIS_USER: quarkusapp
       REDIS_PASSWORD: quarkusapp
@@ -42,8 +42,8 @@ services:
     container_name: container-quarkus
     image: compose-example:quarkus
     build:
-      context: ./
-      dockerfile: Dockerfile.quarkus # isso faz com que o docker-compose utilize o Dockerfile.quarkus.x86x64 para criar a imagem do backend
+      context: ./quarkus
+      dockerfile: Dockerfile # isso faz com que o docker-compose utilize o Dockerfile.quarkus.x86x64 para criar a imagem do backend
       args:
       - JDK=${JDK}
     environment:
@@ -69,8 +69,8 @@ services:
     container_name: container-node
     image: compose-example:node
     build:
-      context: ./
-      dockerfile: Dockerfile.nodeapi # isso faz com que o docker-compose utilize o Dockerfile.nodeapi para criar a imagem do node
+      context: ./node
+      dockerfile: Dockerfile # isso faz com que o docker-compose utilize o Dockerfile.nodeapi para criar a imagem do node
     environment:
       QUARKUS_PORT: 3000
       QUARKUS_URL: backend
@@ -86,8 +86,8 @@ services:
     container_name: container-react
     image: compose-example:react
     build:
-      context: ./
-      dockerfile: Dockerfile.react # isso faz com que o docker-compose utilize o Dockerfile.nodeapi para criar a imagem do node
+      context: ./react
+      dockerfile: Dockerfile # isso faz com que o docker-compose utilize o Dockerfile.nodeapi para criar a imagem do node
     environment:
       QUARKUS_PORT: 3000
       QUARKUS_URL: backend

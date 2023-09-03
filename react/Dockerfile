@@ -5,13 +5,13 @@ FROM node:lts-alpine as build
 WORKDIR /app
 
 # Copie o arquivo package.json e package-lock.json para o diretório de trabalho
-COPY react/package*.json ./
+COPY /package*.json ./
 
 # Instale as dependências
 RUN npm install
 
 # Copie os arquivos do aplicativo React para o diretório de trabalho
-COPY /react/ .
+COPY / .
 
 # Construa o aplicativo React
 RUN npm run build

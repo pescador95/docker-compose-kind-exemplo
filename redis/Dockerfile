@@ -2,7 +2,7 @@
 FROM redis:latest
 
 # Copie arquivos de configuração personalizados, se necessário
-# COPY redis.conf /usr/local/etc/redis/redis.conf
+COPY redis.conf /usr/local/etc/redis/redis.conf
 
 # Se você precisar realizar alguma configuração específica, pode fazê-lo aqui
 
