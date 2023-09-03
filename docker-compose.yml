@@ -44,10 +44,7 @@ services:
     build:
       context: ./quarkus
       dockerfile: Dockerfile # isso faz com que o docker-compose utilize o Dockerfile.quarkus.x86x64 para criar a imagem do backend
-      args:
-      - JDK=${JDK}
     environment:
-      JDK: ${JDK}
       DATABASE_URL: jdbc:postgresql://db:5433/quarkusapp
       DATABASE_USER: quarkusapp
       DATABASE_PASSWORD: quarkusapp

@@ -11,7 +11,7 @@ COPY /src /app/src
 RUN mvn clean package -DskipTests
 
 # Final Stage
-FROM ${JDK}
+FROM amazoncorretto:20
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 
@@ -25,6 +25,7 @@ USER root
 
 ENV AB_JOLOKIA_OFF=""
 
+ENV JAVA_VERSION=20
 ENV PORT="3000"
 ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Dquarkus.http.port=3000 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"

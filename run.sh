@@ -12,17 +12,6 @@ fi
 
 arch=$(uname -m)
 
-if [ "$arch" = "x86_64" ]; then
-    jdk="amazoncorretto:20.0.2"
-    elif [ "$arch" = "aarch64" ]; then
-    jdk="amazonlinux:2"
-    #jdk="arm64v8/openjdk:17-jdk-slim" para java17
-else
-    echo "Arquitetura não suportada: $arch"
-fi
-
-export JDK=$jdk
-
 current_branch=$(git branch --show-current)
 echo "Executando o script na branch: $current_branch"
 echo "Build and Run - Projeto: Docker Compose Exemplo... ##############"
