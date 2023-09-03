@@ -44,8 +44,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      JDK_ARM64: "amazoncorretto:20.0.2-arm64"
-
+      JDK_ARM64: "amazoncorretto:20.0.2-al2-arm64"
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
