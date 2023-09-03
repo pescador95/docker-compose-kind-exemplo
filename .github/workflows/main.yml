@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      JDK_ARM64: "adoptopenjdk:20.0.2-jdk11-arm64-hotspot"
+      JDK_ARM64: "openjdk:20.0.2-jdk11-arm64-alpine"
       
     steps:
       - name: Checkout code
