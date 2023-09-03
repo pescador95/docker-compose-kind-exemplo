@@ -6,6 +6,7 @@ on:
       - main
 
 jobs:
+
   db:
     runs-on: ubuntu-latest
     steps:
@@ -24,14 +25,31 @@ jobs:
       - name: Build Postgres Database Container
         run: docker-compose -f docker-compose.yml build redis
 
-  quarkus:
+  quarkus-x86_64:
     runs-on: ubuntu-latest
+
+    env:
+      JDK: "amazoncorretto:20.0.2"
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build Quarkus Backend Container 
-        run: docker-compose -f docker-compose.yml build quarkus
+      - name: Build Quarkus Backend Container amd64
+        run: docker-compose -f docker-compose.yml build quarkus --build-arg IMAGE=${JDK}
+
+  quarkus-aarch64:
+    runs-on: ubuntu-latest
+
+    env:
+      JDK_ARM64: "amazoncorretto:20.0.2-arm64"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Quarkus Backend Container arm64
+        run: docker-compose -f docker-compose.yml build quarkus --build-arg IMAGE=${JDK_ARM64}
 
   node:
     runs-on: ubuntu-latest
@@ -52,7 +70,7 @@ jobs:
         run: docker-compose -f docker-compose.yml build react
 
   deploy:
-    needs: [db, quarkus, node, react, redis]
+    needs: [db, quarkus-x86_64, quarkus-aarch64, node, react, redis]
     runs-on: ubuntu-latest
 
     if: ${{ false }} # Remova essa linha para habilitar o deploy
