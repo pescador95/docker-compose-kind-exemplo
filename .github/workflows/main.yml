@@ -36,7 +36,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Quarkus Backend Container amd64
-        run: docker-compose -f docker-compose.yml build quarkus --build-arg IMAGE=${JDK}
+        run: docker-compose -f docker-compose.yml build quarkus
+        env:
+          JDK: ${{ env.JDK }}
 
   quarkus-aarch64:
     runs-on: ubuntu-latest
@@ -49,7 +51,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Quarkus Backend Container arm64
-        run: docker-compose -f docker-compose.yml build quarkus --build-arg IMAGE=${JDK_ARM64}
+        run: docker-compose -f docker-compose.yml build quarkus
+        env:
+          JDK: ${{ env.JDK_ARM64}}
 
   node:
     runs-on: ubuntu-latest

@@ -1,4 +1,4 @@
-ARG IMAGE
+ARG JDK
 
 # Build Stage
 FROM maven:latest as build
@@ -11,7 +11,7 @@ COPY /quarkus/src /app/src
 RUN mvn clean package -DskipTests
 
 # Final Stage
-FROM ${IMAGE}
+FROM ${JDK}
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 
