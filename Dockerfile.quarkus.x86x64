@@ -1,5 +1,5 @@
 # Build Stage
-FROM maven:3.8.6 as build
+FROM maven:latest as build
 WORKDIR /app
 # Resolve dependencies
 COPY /quarkus/pom.xml /app
@@ -9,7 +9,7 @@ COPY /quarkus/src /app/src
 RUN mvn clean package -DskipTests
 
 # Final Stage
-FROM openjdk:17-jdk
+FROM openjdk:20-jdk-slim
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 
 COPY --chown=185 --from=build app/target/quarkus-app/lib/ /deployments/lib/
@@ -24,6 +24,6 @@ ENV AB_JOLOKIA_OFF=""
 
 ENV PORT="3000"
 ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Dquarkus.http.port=3000 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
-ENV JAVA_APP_JAR="/deployments/quarkus-run.jar" 
+ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
 
 CMD ["java", "-Dquarkus.http.port=3000", "-jar", "/deployments/quarkus-run.jar"]

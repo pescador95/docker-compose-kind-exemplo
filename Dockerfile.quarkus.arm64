@@ -1,5 +1,5 @@
 # Build Stage
-FROM maven:3.8.6 as build
+FROM maven:latest as build
 WORKDIR /app
 # Resolve dependencies
 COPY /quarkus/pom.xml /app
@@ -9,7 +9,7 @@ COPY /quarkus/src /app/src
 RUN mvn clean package -DskipTests
 
 # Final Stage
-FROM arm64v8/openjdk:17-jdk-slim
+FROM arm64v8/openjdk:20-jdk
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 

@@ -24,14 +24,23 @@ jobs:
       - name: Build Postgres Database Container
         run: docker-compose -f docker-compose.yml build redis
 
-  quarkus:
+  quarkus-x86-x64:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build Quarkus Backend Container
+      - name: Build Quarkus Backend Container architecture x86-x64
         run: docker-compose -f docker-compose.yml build quarkus
+
+  quarkus-arm64:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Quarkus Backend Container architecture arm64
+        run: docker-compose -f docker-compose.arm64.yml build quarkus
 
   node:
     runs-on: ubuntu-latest
@@ -52,7 +61,7 @@ jobs:
         run: docker-compose -f docker-compose.yml build react
 
   deploy:
-    needs: [db, quarkus, node, react, redis]
+    needs: [db, quarkus-x86-x64, quarkus-arm64, node, react, redis]
     runs-on: ubuntu-latest
 
     if: ${{ false }} # Remova essa linha para habilitar o deploy
