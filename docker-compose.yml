@@ -54,6 +54,8 @@ services:
       DATABASE_DB: quarkusapp
       EMAIL_USER: quarkusapp
       EMAIL_PASSWORD: quarkusapp
+      REDIS_USER: quarkusapp
+      REDIS_PASSWORD: quarkusapp
       QUARKUS_PORT: 3000
     ports:
       # isso faz com que a porta 3000 do container seja mapeada para a porta 3000 da máquina host, tornando-a exposta.
