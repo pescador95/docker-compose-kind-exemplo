@@ -173,6 +173,8 @@
                     <source>20</source>
                     <target>20</target>
                     <compilerArgs>
+                        <arg>--enable-preview</arg>
+                        <arg>-parameters</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>
