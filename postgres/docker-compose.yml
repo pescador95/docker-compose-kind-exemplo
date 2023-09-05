@@ -1,0 +1,23 @@
+# db/docker-compose.yml
+version: "3.3"
+
+services:
+  db:
+    container_name: container-db
+    image: compose-example:db
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    env_file:
+      - ./postgres.env
+    ports:
+      - "5433:5433"
+    networks:
+      - internal-network
+
+networks:
+  internal-network:
+    driver: bridge

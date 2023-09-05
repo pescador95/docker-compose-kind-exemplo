@@ -1,0 +1,25 @@
+version: "3.3"
+
+services:
+  quarkus:
+    container_name: container-quarkus
+    image: compose-example:quarkus
+    build:
+      context: ./quarkus
+      dockerfile: Dockerfile
+    env_file:
+      - ./quarkus.env
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5433/${DATABASE_DB}
+      QUARKUS_PORT: ${QUARKUS_PORT}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+    networks:
+      - internal-network
+
+networks:
+  internal-network:
+    driver: bridge

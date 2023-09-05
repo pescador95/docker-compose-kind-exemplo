@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  react:
+    container_name: container-react
+    image: compose-example:react
+    build:
+      context: ./react
+      dockerfile: Dockerfile
+    env_file:
+      - ./react.env
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    networks:
+      - internal-network
+
+networks:
+  internal-network:
+    driver: bridge

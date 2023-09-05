@@ -5,19 +5,17 @@ services:
     container_name: container-db
     image: compose-example:db
     volumes:
-      # isso faz com que os dados do banco sejam salvos na pasta db/data a partir do diretório contexto
       - ./db/data:/var/lib/postgresql/data
       - ./sql:/docker-entrypoint-initdb.d
     build:
       context: ./postgres
-      dockerfile: Dockerfile # isso faz com que o docker-compose utilize o Dockerfile.postgres para criar a imagem do banco de dados
+      dockerfile: Dockerfile
     environment:
-      DATABASE_USER: quarkusapp
-      DATABASE_PASSWORD: quarkusapp
-      DATABASE_DB: quarkusapp
-      DATABASE_PORT: 5433
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_DB: ${DATABASE_DB}
+      DATABASE_PORT: ${DATABASE_PORT}
     ports:
-      # isso faz com que a porta 5433 do container seja mapeada para a porta 5433 da máquina host, tornando-a exposta.
       - "5433:5433"
     networks:
       - internal-network
@@ -29,8 +27,8 @@ services:
       context: ./redis
       dockerfile: Dockerfile
     environment:
-      REDIS_USER: quarkusapp
-      REDIS_PASSWORD: quarkusapp
+      REDIS_USER: ${REDIS_USER}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
     volumes:
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
     ports:
@@ -43,22 +41,19 @@ services:
     image: compose-example:quarkus
     build:
       context: ./quarkus
-      dockerfile: Dockerfile # isso faz com que o docker-compose utilize o Dockerfile.quarkus.x86x64 para criar a imagem do backend
+      dockerfile: Dockerfile
     environment:
-      DATABASE_URL: jdbc:postgresql://db:5433/quarkusapp
-      DATABASE_USER: quarkusapp
-      DATABASE_PASSWORD: quarkusapp
-      DATABASE_DB: quarkusapp
-      EMAIL_USER: quarkusapp
-      EMAIL_PASSWORD: quarkusapp
-      REDIS_USER: quarkusapp
-      REDIS_PASSWORD: quarkusapp
-      QUARKUS_PORT: 3000
+      DATABASE_URL: jdbc:postgresql://db:5433/${DATABASE_DB}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+      REDIS_USER: ${REDIS_USER}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      QUARKUS_PORT: ${QUARKUS_PORT}
     ports:
-      # isso faz com que a porta 3000 do container seja mapeada para a porta 3000 da máquina host, tornando-a exposta.
       - "3000:3000"
     depends_on:
-      # isso faz com que o container do backend só seja iniciado após o container do banco de dados estar pronto
       - db
       - redis
     networks:
@@ -69,16 +64,15 @@ services:
     image: compose-example:node
     build:
       context: ./node
-      dockerfile: Dockerfile # isso faz com que o docker-compose utilize o Dockerfile.nodeapi para criar a imagem do node
+      dockerfile: Dockerfile
     environment:
-      QUARKUS_PORT: 3000
+      QUARKUS_PORT: ${QUARKUS_PORT}
       QUARKUS_URL: backend
       QUARKUS_BASEURL: http://backend:3000
-      API_BACKEND_LOGIN: quarkusapp
-      API_BACKEND_PASSWORD: quarkusapp
-      NODE_PORT: 5000
+      API_BACKEND_LOGIN: ${DATABASE_USER}
+      API_BACKEND_PASSWORD: ${DATABASE_PASSWORD}
+      NODE_PORT: ${NODE_PORT}
     networks:
-      # esse serviço não está com a porta exposta, pois não é necessário acessá-lo diretamente
       - internal-network
 
   react:
@@ -86,23 +80,21 @@ services:
     image: compose-example:react
     build:
       context: ./react
-      dockerfile: Dockerfile # isso faz com que o docker-compose utilize o Dockerfile.nodeapi para criar a imagem do node
+      dockerfile: Dockerfile
     environment:
-      QUARKUS_PORT: 3000
+      QUARKUS_PORT: ${QUARKUS_PORT}
       QUARKUS_URL: backend
       QUARKUS_BASEURL: http://backend:3000
-      API_BACKEND_LOGIN: quarkusapp
-      API_BACKEND_PASSWORD: quarkusapp
-      REACT_PORT: 8080
+      API_BACKEND_LOGIN: ${DATABASE_USER}
+      API_BACKEND_PASSWORD: ${DATABASE_PASSWORD}
+      REACT_PORT: ${REACT_PORT}
     ports:
-      - "8080:8080" # isso faz com que a porta 8080 do container seja mapeada para a porta 8080 da máquina host, tornando-a exposta.
+      - "8080:8080"
     volumes:
       - .:/app
     networks:
       - internal-network
 
-# ----- NETWORK -----
 networks:
-  # isso faz com que os containers possam se comunicar entre si através do nome do serviço
   internal-network:
     driver: bridge
