@@ -10,11 +10,8 @@ services:
     build:
       context: ./postgres
       dockerfile: Dockerfile
-    environment:
-      DATABASE_USER: ${DATABASE_USER}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_DB: ${DATABASE_DB}
-      DATABASE_PORT: ${DATABASE_PORT}
+    env_file:
+      - .env
     ports:
       - "5433:5433"
     networks:
@@ -26,9 +23,8 @@ services:
     build:
       context: ./redis
       dockerfile: Dockerfile
-    environment:
-      REDIS_USER: ${REDIS_USER}
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    env_file:
+      - .env
     volumes:
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
     ports:
@@ -42,15 +38,8 @@ services:
     build:
       context: ./quarkus
       dockerfile: Dockerfile
-    environment:
-      DATABASE_URL: jdbc:postgresql://db:5433/${DATABASE_DB}
-      DATABASE_USER: ${DATABASE_USER}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      EMAIL_USER: ${EMAIL_USER}
-      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
-      REDIS_USER: ${REDIS_USER}
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
-      QUARKUS_PORT: ${QUARKUS_PORT}
+    env_file:
+      - .env
     ports:
       - "3000:3000"
     depends_on:
@@ -65,13 +54,8 @@ services:
     build:
       context: ./node
       dockerfile: Dockerfile
-    environment:
-      QUARKUS_PORT: ${QUARKUS_PORT}
-      QUARKUS_URL: backend
-      QUARKUS_BASEURL: http://backend:3000
-      API_BACKEND_LOGIN: ${DATABASE_USER}
-      API_BACKEND_PASSWORD: ${DATABASE_PASSWORD}
-      NODE_PORT: ${NODE_PORT}
+    env_file:
+      - .env
     networks:
       - internal-network
 
@@ -81,13 +65,8 @@ services:
     build:
       context: ./react
       dockerfile: Dockerfile
-    environment:
-      QUARKUS_PORT: ${QUARKUS_PORT}
-      QUARKUS_URL: backend
-      QUARKUS_BASEURL: http://backend:3000
-      API_BACKEND_LOGIN: ${DATABASE_USER}
-      API_BACKEND_PASSWORD: ${DATABASE_PASSWORD}
-      REACT_PORT: ${REACT_PORT}
+    env_file:
+      - .env
     ports:
       - "8080:8080"
     volumes:

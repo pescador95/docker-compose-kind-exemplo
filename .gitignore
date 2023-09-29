@@ -39,6 +39,6 @@ nb-configuration.xml
 *.rej
 
 # Local environment
-.env
+#.env
 .credentials.json
 tokens
