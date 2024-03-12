@@ -42,3 +42,15 @@ nb-configuration.xml
 #.env
 .credentials.json
 tokens
+
+# Quarkus
+.quarkus
+quarkus.log*
+
+#Database files
+db/
+node_modules
+
+#keys
+*.key
+*.pub

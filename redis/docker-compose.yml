@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   redis:
-    container_name: tcc-redis
+    container_name: container-redis
     image: compose-example:redis
     build:
       context: ./redis

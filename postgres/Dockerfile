@@ -1,16 +1,13 @@
 FROM postgres:latest
 
 # Environment variables
-ENV DATABASE_USER=quarkusapp
-ENV DATABASE_PASSWORD=quarkusapp
-ENV POSTGRES_USER=quarkusapp
-ENV POSTGRES_PASSWORD=quarkusapp
-ENV POSTGRES_DB=quarkusapp
+ENV DATABASE_USER=postgres
+ENV DATABASE_PASSWORD=postgres
 # Create the database
-ENV DATABASE_DB=quarkusapp
+ENV DATABASE_DB=postgres
 
 #hostname from databse
-ENV DATABASE_HOST=quarkusapp
+ENV DATABASE_HOST=postgres
 
 #port from database
 ENV DATABASE_PORT=5433

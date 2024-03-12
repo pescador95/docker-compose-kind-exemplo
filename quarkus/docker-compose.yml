@@ -13,7 +13,7 @@ services:
       DATABASE_URL: jdbc:postgresql://db:5433/${DATABASE_DB}
       QUARKUS_PORT: ${QUARKUS_PORT}
     ports:
-      - "3000:3000"
+      - "6000:6000"
     depends_on:
       - db
       - redis

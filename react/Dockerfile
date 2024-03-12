@@ -5,19 +5,20 @@ FROM node:lts-alpine as build
 WORKDIR /app
 
 # Copie o arquivo package.json e package-lock.json para o diretório de trabalho
-COPY /package*.json ./
+COPY /package-lock.json ./
+COPY /package.json ./
 
 # Instale as dependências
 RUN npm install
 
 # Copie os arquivos do aplicativo React para o diretório de trabalho
-COPY / .
+COPY . .
 
 # Construa o aplicativo React
 RUN npm run build
 
-# Exponha a porta 8080 para acesso ao servidor Nginx
-EXPOSE 8080
+# Exponha a porta 6000 para acesso ao servidor Nginx
+EXPOSE 6000
 
 # Comando para iniciar o servidor Nginx quando o contêiner for iniciado
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]

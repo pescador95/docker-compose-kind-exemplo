@@ -1,7 +1,7 @@
-CREATE USER "quarkusapp" WITH PASSWORD 'quarkusapp';
+CREATE USER "postgres" WITH PASSWORD 'postgres';
 
-ALTER USER "quarkusapp" WITH SUPERUSER;
+ALTER USER "postgres" WITH SUPERUSER;
 
-CREATE DATABASE "quarkusapp";
+CREATE DATABASE "postgres";
 
-GRANT ALL PRIVILEGES ON DATABASE "quarkusapp" TO "quarkusapp";
+GRANT ALL PRIVILEGES ON DATABASE "postgres" TO "postgres";

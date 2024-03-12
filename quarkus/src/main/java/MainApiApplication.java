@@ -9,10 +9,8 @@ import java.time.format.DateTimeFormatter;
 public class MainApiApplication {
 
     public static void main(String... args) {
-        System.out.println("API - Quarkus");
         Quarkus.run(args);
         logMemoryInfo();
-        System.out.println("Hello World!");
     }
 
     private static void logMemoryInfo() {
@@ -33,7 +31,6 @@ public class MainApiApplication {
         System.out.println(
                 "Total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / mb) + mega);
         System.out.println("=================================================================");
-        System.out.println("Using Quarkus 2.16.6 Final");
         System.out.println(
                 "Started in : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
         System.out.println("=================================================================\n");
