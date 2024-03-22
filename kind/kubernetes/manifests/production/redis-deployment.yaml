@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  labels:
+    app: redis-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: compose-example-redis
+  template:
+    metadata:
+      labels:
+        app: compose-example-redis
+    spec:
+      containers:
+        - name: compose-example-redis
+          image: pescador95/compose-example:redis
+          ports:
+            - containerPort: 6379
+          resources:
+            limits:
+              memory: "256Mi"

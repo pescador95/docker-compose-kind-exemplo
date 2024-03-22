@@ -1,48 +1,23 @@
-# Docker Compose exemplo
+# Compose e Kubernetes utilizando Kind
 
-Simple docker compose example.
+Repositório para demonstração do uso do Kubernetes através do Kind.
 
-# Exemplo de comandos para usar com o docker.
+## Documentação das tecnologias usadas
 
-# Criação Container
-#pra criar o container
-docker build -t {containername} .
+Você pode consultar um breve README de cada tecnologia com o link das documentações oficiais em anexo nos links abaixo:
 
+- [Postgres](documentation/postgres/README.md)
 
-# Execução Container
-#pra rodar o container
-docker run -it {containername} bash
+- [Redis](documentation/redis/README.md)
 
-# Remoção Containers e Imagens
-#apagar imagens 
-docker image rm -f  `docker images -q`
+- [Docker](documentation/docker/README.md)
 
-#apagar containers 
-docker container rm -f `docker ps -aq`
+- [Make](documentation/make/README.md)
 
-#apagar imagens e containers
-docker image rm -f  `docker images -q` && docker container rm -f `docker ps -aq`
+- [Kind](documentation/kind/README.md)
 
-# Localizar Container
-#pegar ip do container rodando
-docker inspect {containername} | grep IPAddress
+- [Kubernetes](documentation/kubernetes/README.md)
 
-# Executar Compose
-#subir docker compose
-docker-compose up
+- [Maven, Java e Quarkus](documentation/backend/README.md)
 
-#baixar docker compose
-docker-compose down
-
-
-# fazer dump banco de dados:
-docker exec -t -u postgres {db_containername} pg_dump -p 5433 -U {db_username} {db_name} > backup.sql
-
-# Apagar Cache
-#remover cache do build
-docker builder prune --all
-
-# Criar Rede no Docker
-docker network create --driver bridge --label 'com.docker.compose.network=default' --label 'com.docker.compose.project={project_name}' internal-network
-
-docker network create --driver bridge --label 'com.docker.compose.network=default' --label 'com.docker.compose.project={project_name}' external-network
+- [Node.js e Express.js](documentation/nodexpress/README.md)

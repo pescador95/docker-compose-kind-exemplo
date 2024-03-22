@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whatsapp-deployment
+  labels:
+    app: compose-example-whatsapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: compose-example-whatsapp
+  template:
+    metadata:
+      labels:
+        app: compose-example-whatsapp
+    spec:
+      containers:
+        - name: compose-example-whatsapp
+          image: pescador95/compose-example:whatsapp
+          ports:
+            - containerPort: 4000
+          resources:
+            limits:
+              memory: "512Mi"
+          env:
+            - name: WHATSAPP_PORT
+              value: "4000"
+            - name: QUARKUS_BASEURL
+              value: "http://backend-service:6000"
+            - name: PUPPETEER_EXECUTABLE_PATH
+              value: "/usr/bin/google-chrome"

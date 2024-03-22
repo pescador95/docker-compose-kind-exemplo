@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telegram-deployment
+  labels:
+    app: compose-example-telegram
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: compose-example-telegram
+  template:
+    metadata:
+      labels:
+        app: compose-example-telegram
+    spec:
+      containers:
+        - name: compose-example-telegram
+          image: pescador95/compose-example:telegram
+          ports:
+            - containerPort: 5000
+          resources:
+            limits:
+              memory: "512Mi"
+          env:
+            - name: QUARKUS_BASEURL
+              value: "http://backend-service:6000"
+            - name: TELEGRAM_PORT
+              value: "5000"
+            - name: TELEGRAM_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: telegram-token
+                  key: telegram-token

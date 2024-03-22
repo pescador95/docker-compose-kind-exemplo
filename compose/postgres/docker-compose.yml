@@ -1,0 +1,20 @@
+# db/docker-compose.yml
+version: "3.3"
+
+services:
+  db:
+    container_name: container-db
+    image: pescador95/compose-example:db
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    env_file:
+      - ./postgres.env
+    ports:
+      - "5433:5433"
+    networks:
+      - internal-network
+
+networks:
+  internal-network:
+    driver: bridge

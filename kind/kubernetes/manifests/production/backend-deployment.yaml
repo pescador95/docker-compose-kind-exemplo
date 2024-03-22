@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: compose-example-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: compose-example-backend
+  template:
+    metadata:
+      labels:
+        app: compose-example-backend
+    spec:
+      containers:
+        - name: compose-example-backend
+          image: pescador95/compose-example:quarkus
+          ports:
+            - containerPort: 6000
+          resources:
+            limits:
+              memory: "2048Mi"
+          env:
+            - name: SCHEDULER_ENABLED
+              value: "true"
+            - name: QUARKUS_PORT
+              value: "6000"
+            - name: QUARKUS_URL
+              value: "backend-service"
+            - name: QUARKUS_BASEURL
+              value: "http://backend-service:6000"
+            - name: WHATSAPP_BASEURL
+              value: "http://whatsapp-service:4000"
+            - name: TELEGRAM_BASEURL
+              value: "http://telegram-service:5000"
+            - name: REDIS_BASEURL
+              value: "redis://redis-service:6379"
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: database-user
+                  key: database-user
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-password
+                  key: database-password
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: database-url
+                  key: database-url
+            - name: EMAIL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: email-user
+                  key: email-user
+            - name: EMAIL_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: email-password
+                  key: email-password

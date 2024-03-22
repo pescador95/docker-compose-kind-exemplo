@@ -1,0 +1,19 @@
+version: "3.3"
+
+services:
+  react:
+    container_name: container-react
+    image: pescador95/compose-example:react
+    build:
+      context: ./react
+      dockerfile: Dockerfile
+    env_file:
+      - ./react.env
+    ports:
+      - "3000:3000"
+    networks:
+      - internal-network
+
+networks:
+  internal-network:
+    driver: bridge

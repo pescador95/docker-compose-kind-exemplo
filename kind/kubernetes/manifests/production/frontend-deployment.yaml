@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: compose-example-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: compose-example-frontend
+  template:
+    metadata:
+      labels:
+        app: compose-example-frontend
+    spec:
+      containers:
+        - name: compose-example-frontend
+          image: pescador95/compose-example:react
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "256Mi"
+          env:
+            - name: QUARKUS_BASEURL
+              value: "http://backend.blackbelt.compose-example.app"

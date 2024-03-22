@@ -1,0 +1,45 @@
+name: Build Tests and Deploy Backend
+"on":
+  push:
+    branches:
+      - main
+    paths:
+      - "compose/quarkus/**"
+jobs:
+  quarkus:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Copy .env.example
+        run: cp .env.example .env
+      - name: Build Quarkus Backend Container
+        run: |
+          docker-compose -f docker-compose.yml build quarkus
+
+  deploy:
+    needs: [quarkus]
+    runs-on: ubuntu-latest
+    env:
+      SSH_USERNAME: "${{ secrets.SSH_USERNAME }}"
+      SSH_SERVER: "${{ secrets.SSH_SERVER }}"
+      SSH_SERVER_KEY: "${{ secrets.SSH_SERVER_KEY }}"
+      REPOSITORY_PATH: "${{ secrets.REPOSITORY_PATH }}"
+    steps:
+      - name: Add SSH key to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan $SSH_SERVER >> ~/.ssh/known_hosts
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.1
+        with:
+          ssh-private-key: "${{ secrets.SSH_SERVER_KEY }}"
+      - name: Pull latest changes from Git
+        run: |
+          ssh $SSH_USERNAME@$SSH_SERVER "sudo su -c 'cd ~/${REPOSITORY_PATH} && git checkout main && git pull'"
+      - name: Connect to Server and Run Commands to Deploy Backend
+        run: |
+          ssh $SSH_USERNAME@$SSH_SERVER "sudo su -c 'cd ~/${REPOSITORY_PATH} && chmod +x ~/${REPOSITORY_PATH}/compose/quarkus/deploy.sh && ./compose/quarkus/deploy.sh'"
+      - name: Reset deploy.sh changes
+        run: |
+          ssh $SSH_USERNAME@$SSH_SERVER "sudo su -c 'cd ~/${REPOSITORY_PATH}/compose/quarkus && git checkout -- deploy.sh'"
