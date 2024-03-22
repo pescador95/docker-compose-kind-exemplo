@@ -22,6 +22,7 @@ jobs:
           docker-compose -f docker-compose.yml build node
 
   deploy:
+    if: false
     needs: [node]
     runs-on: ubuntu-latest
 

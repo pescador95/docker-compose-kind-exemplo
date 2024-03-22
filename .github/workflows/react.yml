@@ -22,6 +22,7 @@ jobs:
           docker-compose -f docker-compose.yml build react
 
   deploy:
+    if: false
     needs: [react]
     runs-on: ubuntu-latest
 
