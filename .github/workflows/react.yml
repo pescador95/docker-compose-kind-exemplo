@@ -19,7 +19,7 @@ jobs:
 
       - name: Build API React Container
         run: |
-          docker-compose -f docker-compose.yml build react
+          docker compose -f docker-compose.yml build react
 
   deploy:
     if: false

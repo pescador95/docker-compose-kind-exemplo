@@ -19,7 +19,7 @@ jobs:
 
       - name: Build API Node Container
         run: |
-          docker-compose -f docker-compose.yml build node
+          docker compose -f docker-compose.yml build node
 
   deploy:
     if: false

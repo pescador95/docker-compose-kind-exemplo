@@ -48,11 +48,11 @@ Para pegar ip do container rodando
 
 Para subir docker compose
 
-- `docker-compose up`
+- `docker compose up`
 
 Para baixar docker compose
 
-- `docker-compose down`
+- `docker compose down`
 
 ## Apagar Cache
 

@@ -17,7 +17,7 @@ jobs:
         run: cp .env.example .env
 
       - name: Build Postgres Database Container
-        run: docker-compose -f docker-compose.yml build redis
+        run: docker compose -f docker-compose.yml build redis
 
   quarkus:
     runs-on: ubuntu-latest
@@ -29,7 +29,7 @@ jobs:
         run: cp .env.example .env
 
       - name: Build Quarkus Backend Container
-        run: docker-compose -f docker-compose.yml build quarkus
+        run: docker compose -f docker-compose.yml build quarkus
 
   telegram:
     runs-on: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
         run: cp .env.example .env
 
       - name: Build API Telegram Container
-        run: docker-compose -f docker-compose.yml build telegram
+        run: docker compose -f docker-compose.yml build telegram
 
   whatsapp:
     runs-on: ubuntu-latest
@@ -53,7 +53,7 @@ jobs:
         run: cp .env.example .env
 
       - name: Build API Whatsapp Container
-        run: docker-compose -f docker-compose.yml build whatsapp
+        run: docker compose -f docker-compose.yml build whatsapp
 
   frontend:
     runs-on: ubuntu-latest
@@ -65,4 +65,4 @@ jobs:
         run: cp .env.example .env
 
       - name: Build Frontend Container
-        run: docker-compose -f docker-compose.yml build frontend
+        run: docker compose -f docker-compose.yml build frontend

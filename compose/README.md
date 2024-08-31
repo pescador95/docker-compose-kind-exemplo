@@ -29,10 +29,10 @@ docker inspect {containername} | grep IPAddress
 
 # Executar Compose
 #subir docker compose
-docker-compose up
+docker compose up
 
 #baixar docker compose
-docker-compose down
+docker compose down
 
 
 # fazer dump banco de dados:
