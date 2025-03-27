@@ -54,3 +54,4 @@ node_modules
 #keys
 *.key
 *.pub
+*.pem
